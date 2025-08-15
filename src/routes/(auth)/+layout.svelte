@@ -9,13 +9,15 @@
 	<div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
-				<img
-					src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-					alt="Company logo"
-					width="176"
-					height="150"
-					class="h-10 w-auto"
-				/>
+				<a href="/" class="inline-block">
+					<img
+						src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+						alt="Company logo"
+						width="176"
+						height="150"
+						class="h-10 w-auto"
+					/>
+				</a>
 				<h2 class="mt-4 text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
 					{#if page.url.pathname.endsWith(SIGNIN)}
 						Sign in to your account

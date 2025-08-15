@@ -49,6 +49,7 @@
 		"zod": "^3.25.76"
 	},
 	"dependencies": {
+		"@bprogress/core": "^1.3.4",
 		"pocketbase": "^0.26.2"
 	}
 }
