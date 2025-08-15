@@ -1,7 +1,8 @@
 <script>
 	import pb from '$lib/pocketbase.js';
 	import { toast } from 'svelte-sonner';
-	import { SIGNUP } from '$lib/constants.js';
+	import { goto } from '$app/navigation';
+	import { DASHBOARD, SIGNUP } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import { baseAuthSchema } from '$lib/utils/schemas/auth.js';
@@ -27,6 +28,7 @@
 					try {
 						btnDisabled = true;
 						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
+						await goto(DASHBOARD);
 						toast.success('Successfully signed in!');
 					} catch (error) {
 						btnDisabled = false;

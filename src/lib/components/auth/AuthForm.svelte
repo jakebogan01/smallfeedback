@@ -34,27 +34,8 @@
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Password</Form.Label>
-				{#if useStrongPwd}
-					<Password.Root>
-						<Password.Input
-							type="password"
-							{...props}
-							bind:value={$formData.password}
-							inputmode="text"
-							spellcheck="false"
-							autocapitalize="none"
-							autoComplete="current-password"
-							minlength="8"
-							maxlength="71"
-							aria-label="Password"
-							required
-						>
-							<Password.ToggleVisibility class="cursor-pointer" />
-						</Password.Input>
-						<Password.Strength />
-					</Password.Root>
-				{:else}
-					<Input
+				<Password.Root>
+					<Password.Input
 						type="password"
 						{...props}
 						bind:value={$formData.password}
@@ -66,8 +47,13 @@
 						maxlength="71"
 						aria-label="Password"
 						required
-					/>
-				{/if}
+					>
+						<Password.ToggleVisibility class="cursor-pointer" />
+					</Password.Input>
+					{#if useStrongPwd}
+						<Password.Strength />
+					{/if}
+				</Password.Root>
 			{/snippet}
 		</Form.Control>
 		<Form.FieldErrors />
