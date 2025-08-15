@@ -3,6 +3,7 @@
 	import pb from '$lib/pocketbase.js';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
+	import Head from '$lib/components/Head.svelte';
 	import { DASHBOARD, SIGNIN } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import * as Password from '$lib/components/ui/password';
@@ -55,6 +56,12 @@
 
 	const { form: formData, enhance } = form;
 </script>
+
+<Head
+	page_title="SmallFeedBack | Sign-up"
+	description="Sign up for SmallFeedBack and start sharing honest, anonymous feedback on any topic. Join boards, spark conversations, and shape better ideas."
+	keywords="SmallFeedBack sign up, create feedback account, anonymous feedback signup, join discussion board, start sharing feedback, topic feedback register"
+/>
 
 <AuthForm {form} {formData} {enhance} pageType={SIGNIN} {btnDisabled}>
 	<Form.Field {form} name="passwordConfirm">
