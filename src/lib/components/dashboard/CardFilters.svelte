@@ -1,34 +1,16 @@
-<div class="mt-7 flex justify-between">
-	<div
-		class="inline-flex items-center divide-x divide-gray-200 overflow-hidden rounded-md bg-white shadow dark:divide-transparent dark:bg-white/10 dark:shadow-none"
-	>
-		<button
-			type="button"
-			id="searchBtn"
-			aria-label="Search"
-			class="group flex w-9 items-center space-x-1.5 overflow-hidden py-2 pr-2 pl-2.5 sm:transition-all sm:duration-300 sm:ease-in-out sm:hover:w-32 sm:hover:bg-blue-500 dark:hover:bg-emerald-600"
-			style="will-change: transform"
-		>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 24 24"
-				fill="currentColor"
-				aria-hidden="true"
-				stroke="currentColor"
-				class="size-4 min-w-4 fill-blue-700 stroke-none sm:transition sm:group-hover:fill-white sm:group-hover:stroke-white dark:fill-white"
-				><path
-					fill-rule="evenodd"
-					d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z"
-					clip-rule="evenodd"
-				/></svg
-			>
-			<span
-				class="text-sm text-slate-500 opacity-0 sm:transition sm:duration-300 sm:ease-in-out sm:group-hover:text-white sm:group-hover:opacity-100 dark:text-white"
-				>Search...</span
-			>
-		</button>
-	</div>
+<script>
+	import SearchIcon from '@lucide/svelte/icons/search';
+</script>
 
+<div class="mt-7 flex justify-between">
+	<button
+		type="button"
+		aria-label="Search"
+		class="card-foundation group flex w-9 cursor-pointer items-center space-x-1.5 overflow-hidden py-2 pr-2 pl-2.5 will-change-transform sm:transition-[width] sm:hover:w-26"
+	>
+		<SearchIcon class="size-4 min-w-4" />
+		<span class="text-sm opacity-0 sm:transition-opacity sm:group-hover:opacity-100">Search...</span>
+	</button>
 	<div
 		class="inline-flex items-center divide-x divide-gray-200 overflow-hidden rounded-md bg-white shadow dark:divide-transparent dark:bg-white/10 dark:shadow-none"
 	>

@@ -12,16 +12,16 @@
 	<h3 id="controls" class="sr-only">Controls</h3>
 	<div class="grid grid-cols-4 gap-3">
 		<Button type="button" onclick={logout} aria-label="Sign out" class="cursor-pointer py-5.5">
-			<LogOutIcon />
+			<LogOutIcon class="size-5" />
 		</Button>
 		<Button type="button" aria-label="Toggle theme" class="cursor-pointer py-5.5">
-			<MoonIcon />
+			<MoonIcon class="size-5" />
 		</Button>
 		<Button type="button" aria-label="Show notifications" class="cursor-pointer py-5.5">
-			<BellIcon />
+			<BellIcon class="size-5" />
 		</Button>
 		<Button href={SETTINGS} aria-label="Visit account settings" class="cursor-pointer py-5.5">
-			<SettingsIcon />
+			<SettingsIcon class="size-5" />
 		</Button>
 	</div>
 </section>
