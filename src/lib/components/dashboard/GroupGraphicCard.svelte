@@ -1,9 +1,15 @@
-<section aria-labelledby="client-name">
+<script>
+	import { faker } from '@faker-js/faker';
+</script>
+
+<section aria-labelledby="group-graphic-card-title">
 	<div
-		class="relative h-[8.5625rem] overflow-hidden rounded-md bg-cover bg-center bg-no-repeat px-6 pt-16 pb-6 shadow dark:bg-gradient-to-r dark:from-emerald-400 dark:via-emerald-600 dark:to-emerald-700 dark:shadow-none"
-		style="background-image: url(''); background-color: blue;"
+		class="card-foundation relative bg-cover bg-center bg-no-repeat px-6 pt-16 pb-9"
+		style="background-image: url('https://www.shadcn-svelte.com/placeholder.svg');"
 	>
-		<h1 class="text-xl leading-tight font-bold text-white">Unknown Company</h1>
-		<span class="text-sm text-white">Dashboard Overview</span>
+		<h1 id="group-graphic-card-title" class="truncate text-xl leading-tight font-bold">
+			{faker.company.name()}
+		</h1>
+		<span class="text-sm">Feedback Overview</span>
 	</div>
 </section>

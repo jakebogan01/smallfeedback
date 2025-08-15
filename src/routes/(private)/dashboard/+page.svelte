@@ -8,7 +8,7 @@
 	import MobileNav from '$lib/components/dashboard/MobileNav.svelte';
 	import Pagination from '$lib/components/dashboard/Pagination.svelte';
 	import CardFilters from '$lib/components/dashboard/CardFilters.svelte';
-	import StatusesCard from '$lib/components/dashboard/StatusesCard.svelte';
+	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 </script>
@@ -52,7 +52,7 @@
 				<aside class="sticky top-8 order-2 hidden shrink-0 grid-cols-1 gap-4 lg:order-none lg:mt-8 lg:grid">
 					<GroupGraphicCard />
 					<TagFilterCard />
-					<StatusesCard />
+					<CategoryCard />
 					<Controls />
 				</aside>
 				<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
