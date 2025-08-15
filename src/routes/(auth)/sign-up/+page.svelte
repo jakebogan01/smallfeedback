@@ -1,5 +1,6 @@
 <script>
 	import { z } from 'zod';
+	import pb from '$lib/pocketbase.js';
 	import { SIGNIN } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import * as Password from '$lib/components/ui/password';
@@ -19,21 +20,33 @@
 			path: ['passwordConfirm']
 		});
 
-	const form = superForm(defaults(zod(formSchema)), {
-		SPA: true,
-		validators: zod(formSchema),
-		onUpdate({ form }) {
-			if (form.valid) {
-				try {
-					btnDisabled = true;
-					console.log(form);
-				} catch (error) {
-					console.dir(error?.message, { depth: null });
-					btnDisabled = false;
+	const form = superForm(
+		defaults(
+			{
+				email: '',
+				password: '',
+				passwordConfirm: ''
+			},
+			zod(formSchema)
+		),
+		{
+			SPA: true,
+			validators: zod(formSchema),
+			resetForm: true,
+			onUpdate: async ({ form }) => {
+				if (form.valid) {
+					try {
+						btnDisabled = true;
+						await pb.collection('users').create(form.data);
+						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
+					} catch (error) {
+						console.dir(error?.message, { depth: null });
+						btnDisabled = false;
+					}
 				}
 			}
 		}
-	});
+	);
 
 	const { form: formData, enhance } = form;
 </script>

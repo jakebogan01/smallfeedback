@@ -1,4 +1,5 @@
 <script>
+	import pb from '$lib/pocketbase.js';
 	import { SIGNUP } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { superForm, defaults } from 'sveltekit-superforms';
@@ -8,21 +9,31 @@
 	const formSchema = baseAuthSchema;
 	let btnDisabled = $state(false);
 
-	const form = superForm(defaults(zod(formSchema)), {
-		SPA: true,
-		validators: zod(formSchema),
-		onUpdate({ form }) {
-			if (form.valid) {
-				try {
-					btnDisabled = true;
-					console.log(form);
-				} catch (error) {
-					console.dir(error?.message, { depth: null });
-					btnDisabled = false;
+	const form = superForm(
+		defaults(
+			{
+				email: '',
+				password: ''
+			},
+			zod(formSchema)
+		),
+		{
+			SPA: true,
+			validators: zod(formSchema),
+			resetForm: true,
+			onUpdate: async ({ form }) => {
+				if (form.valid) {
+					try {
+						btnDisabled = true;
+						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
+					} catch (error) {
+						console.dir(error?.message, { depth: null });
+						btnDisabled = false;
+					}
 				}
 			}
 		}
-	});
+	);
 
 	const { form: formData, enhance } = form;
 </script>
