@@ -1,5 +1,6 @@
 <script>
 	import pb from '$lib/pocketbase.js';
+	import { toast } from 'svelte-sonner';
 	import { SIGNUP } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { superForm, defaults } from 'sveltekit-superforms';
@@ -20,15 +21,17 @@
 		{
 			SPA: true,
 			validators: zod(formSchema),
-			resetForm: true,
+			resetForm: false,
 			onUpdate: async ({ form }) => {
 				if (form.valid) {
 					try {
 						btnDisabled = true;
 						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
+						toast.success('Successfully signed in!');
 					} catch (error) {
-						console.dir(error?.message, { depth: null });
 						btnDisabled = false;
+						console.dir(error?.response, { depth: null });
+						toast.error(error?.message);
 					}
 				}
 			}
@@ -38,4 +41,4 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<AuthForm {form} {formData} {enhance} pageType={SIGNUP} {btnDisabled} />
+<AuthForm {form} {formData} {enhance} pageType={SIGNUP} {btnDisabled} useStrongPwd={false} />

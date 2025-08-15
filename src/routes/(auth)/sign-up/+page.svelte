@@ -1,6 +1,7 @@
 <script>
 	import { z } from 'zod';
 	import pb from '$lib/pocketbase.js';
+	import { toast } from 'svelte-sonner';
 	import { SIGNIN } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import * as Password from '$lib/components/ui/password';
@@ -32,16 +33,18 @@
 		{
 			SPA: true,
 			validators: zod(formSchema),
-			resetForm: true,
+			resetForm: false,
 			onUpdate: async ({ form }) => {
 				if (form.valid) {
 					try {
 						btnDisabled = true;
 						await pb.collection('users').create(form.data);
 						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
+						toast.success('Account successfully created!');
 					} catch (error) {
-						console.dir(error?.message, { depth: null });
 						btnDisabled = false;
+						console.dir(error?.response, { depth: null });
+						toast.error(error?.message);
 					}
 				}
 			}

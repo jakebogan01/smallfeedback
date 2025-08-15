@@ -5,7 +5,7 @@
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 
-	let { children, form, formData, enhance, pageType, btnDisabled } = $props();
+	let { children, form, formData, enhance, pageType, btnDisabled, useStrongPwd = true } = $props();
 </script>
 
 <form class="space-y-6" use:enhance>
@@ -34,8 +34,27 @@
 		<Form.Control>
 			{#snippet children({ props })}
 				<Form.Label>Password</Form.Label>
-				<Password.Root>
-					<Password.Input
+				{#if useStrongPwd}
+					<Password.Root>
+						<Password.Input
+							type="password"
+							{...props}
+							bind:value={$formData.password}
+							inputmode="text"
+							spellcheck="false"
+							autocapitalize="none"
+							autoComplete="current-password"
+							minlength="8"
+							maxlength="71"
+							aria-label="Password"
+							required
+						>
+							<Password.ToggleVisibility class="cursor-pointer" />
+						</Password.Input>
+						<Password.Strength />
+					</Password.Root>
+				{:else}
+					<Input
 						type="password"
 						{...props}
 						bind:value={$formData.password}
@@ -47,11 +66,8 @@
 						maxlength="71"
 						aria-label="Password"
 						required
-					>
-						<Password.ToggleVisibility class="cursor-pointer" />
-					</Password.Input>
-					<Password.Strength />
-				</Password.Root>
+					/>
+				{/if}
 			{/snippet}
 		</Form.Control>
 		<Form.FieldErrors />
