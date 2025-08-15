@@ -129,7 +129,11 @@
 }
 
 @layer components {
-	.card-test {
-		@apply border-4 border-blue-500;
+	.card-foundation {
+		@apply overflow-hidden rounded-md border border-transparent bg-background sm:shadow;
 	}
+}
+
+body {
+	@apply bg-slate-100/95;
 }
