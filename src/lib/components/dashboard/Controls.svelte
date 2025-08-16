@@ -1,6 +1,8 @@
 <script>
+	import { toggleMode } from 'mode-watcher';
 	import { SETTINGS } from '$lib/constants.js';
 	import { logout } from '$lib/utils/logout.js';
+	import SunIcon from '@lucide/svelte/icons/sun';
 	import MoonIcon from '@lucide/svelte/icons/moon';
 	import BellIcon from '@lucide/svelte/icons/bell';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
@@ -14,8 +16,20 @@
 		<Button type="button" onclick={logout} aria-label="Sign out" class="cursor-pointer py-5.5">
 			<LogOutIcon class="size-5" />
 		</Button>
-		<Button type="button" aria-label="Toggle theme" class="cursor-pointer py-5.5">
-			<MoonIcon class="size-5" />
+		<Button
+			type="button"
+			onclick={() => {
+				if (!document.startViewTransition) {
+					toggleMode();
+					return;
+				}
+				document.startViewTransition(() => toggleMode());
+			}}
+			aria-label="Toggle theme"
+			class="cursor-pointer py-5.5"
+		>
+			<SunIcon class="hidden size-5 dark:inline" />
+			<MoonIcon class="size-5 dark:hidden" />
 		</Button>
 		<Button type="button" aria-label="Show notifications" class="cursor-pointer py-5.5">
 			<BellIcon class="size-5" />
