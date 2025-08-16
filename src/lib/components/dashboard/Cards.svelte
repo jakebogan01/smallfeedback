@@ -6,6 +6,7 @@
 	import HistoryIcon from '@lucide/svelte/icons/history';
 	import { toISODate, timeAgo } from '$lib/utils/date.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	// import { Skeleton } from "$lib/components/ui/skeleton/index.js";
 	import MessageCircleMoreIcon from '@lucide/svelte/icons/message-circle-more';
 
 	let { toggleLayout } = $props();
@@ -71,6 +72,24 @@
 				</li>
 			{/if}
 		{/each}
+		<!--{#each { length: 10 }, i (i)}-->
+		<!--    <li class="card-foundation">-->
+		<!--        <div class="flex flex-col md:flex-row" aria-label="View Feedback title">-->
+		<!--            <div class="mr-5 px-4 pt-4 sm:pt-6 sm:pb-6 sm:pl-8">-->
+		<!--                <Skeleton class="h-9 w-20 rounded bg-black/30" />-->
+		<!--            </div>-->
+		<!--            <div class="flex-1 px-4 py-2 sm:pt-6 sm:pr-8 sm:pl-8 md:pl-0">-->
+		<!--                <div class="flex items-center justify-between">-->
+		<!--                    <div class="flex flex-col items-start space-x-3 md:flex-row md:items-center">-->
+		<!--                        <Skeleton class="h-6 w-50 rounded bg-black/30" />-->
+		<!--                    </div>-->
+		<!--                </div>-->
+		<!--                <Skeleton class="mt-4 h-6 w-194 rounded bg-black/30" />-->
+		<!--                <Skeleton class="mt-2 h-6 w-194 rounded bg-black/30" />-->
+		<!--            </div>-->
+		<!--        </div>-->
+		<!--    </li>-->
+		<!--{/each}-->
 	</ul>
 </section>
 
