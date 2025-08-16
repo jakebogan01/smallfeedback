@@ -19,7 +19,7 @@
 				<Button
 					type="button"
 					aria-label="Toggle layouts"
-					class="size-10 cursor-pointer bg-background text-primary"
+					class="hidden size-10 cursor-pointer bg-background text-primary md:flex"
 				>
 					<LayoutGridIcon fill="primary" class="size-6" />
 				</Button>
