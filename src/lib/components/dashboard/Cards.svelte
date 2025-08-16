@@ -19,78 +19,41 @@
 			: 'block'}"
 	>
 		{#each { length: faker.number.int({ min: 1, max: 10 }) }, i (i)}
+			{@const link = `${DASHBOARD}/post/title`}
 			{#if toggleLayout}
 				<li class="card-foundation">
-					<a href="{DASHBOARD}/post/title" class="flex flex-col" aria-label="View Feedback title">
+					<a href={link} class="flex flex-col" aria-label="View Feedback title">
 						<div class="flex items-center justify-between px-4 pt-4 sm:px-6 sm:pt-6">
-							<Button
-								type="button"
-								onclickcapture={(e) => {
-									e.stopPropagation();
-									e.preventDefault();
-									console.log('like post!');
-								}}
-								aria-label="Like this post"
-								class="cursor-pointer"
-							>
-								<HearIcon class="size-4" />
-								<span class="font-medium sm:text-sm/6">{faker.number.int({ min: 0, max: 100 })}</span>
-							</Button>
+							{@render likeBtn()}
 							<div class="flex items-center space-x-3">
-								<span class="my-1 flex items-center md:my-0">
-									<HashTag class="size-3" />
-									<span class="ml-0.5 text-xs leading-none">{faker.book.genre()}</span>
-								</span>
-								<div class="ml-0 flex items-center">
-									<MessageCircleMoreIcon class="size-3" />
-									<span class="ml-0.5 text-xs leading-none">{faker.number.int({ min: 0, max: 50 })}</span>
-								</div>
+								{@render tag()}
+								{@render commentCount()}
 							</div>
 						</div>
 						<div class="flex-1 px-4 py-2 sm:px-6">
 							<div class="flex items-center justify-between">
 								<div class="flex flex-col items-start md:flex-row md:items-center">
-									<h2 class="max-w-60 truncate font-semibold sm:max-w-md">{faker.book.title()}</h2>
+									{@render title()}
 								</div>
 							</div>
-							<p class="mt-1 mb-4 line-clamp-3">{faker.word.words({ count: { min: 20, max: 100 } })}</p>
+							{@render copy('mt-1')}
 						</div>
 					</a>
 				</li>
 			{:else}
 				<li class="card-foundation">
-					<a href="{DASHBOARD}/post/title" class="flex flex-col md:flex-row" aria-label="View Feedback title">
+					<a href={link} class="flex flex-col md:flex-row" aria-label="View Feedback title">
 						<div class="mr-5 px-4 pt-4 sm:pt-6 sm:pb-6 sm:pl-8">
-							<Button
-								type="button"
-								onclickcapture={(e) => {
-									e.stopPropagation();
-									e.preventDefault();
-									console.log('like post!');
-								}}
-								aria-label="Like this post"
-								class="cursor-pointer"
-							>
-								<HearIcon class="size-4" />
-								<span class="font-medium sm:text-sm/6"
-									>{faker.number.int({ min: 0, max: 9999 }).toLocaleString('en-US')}</span
-								>
-							</Button>
+							{@render likeBtn()}
 						</div>
 						<div class="flex-1 px-4 py-2 sm:pt-6 sm:pr-8 sm:pl-8 md:pl-0">
 							<div class="flex items-center justify-between">
 								<div class="flex flex-col items-start space-x-3 md:flex-row md:items-center">
-									<h2 class="max-w-60 truncate font-semibold sm:max-w-md">{faker.book.title()}</h2>
-									<span class="my-1 flex items-center md:my-0">
-										<HashTag class="size-3" />
-										<span class="ml-0.5 text-xs leading-none">{faker.book.genre()}</span>
-									</span>
+									{@render title()}
+									{@render tag()}
 								</div>
 								<div class="hidden items-center space-x-3 xl:flex">
-									<div class="ml-0 flex items-center">
-										<MessageCircleMoreIcon class="size-3" />
-										<span class="ml-0.5 text-xs leading-none">{faker.number.int({ min: 0, max: 50 })}</span>
-									</div>
+									{@render commentCount()}
 									<div class="flex items-center">
 										<HistoryIcon class="size-3" />
 										<time
@@ -102,9 +65,7 @@
 									</div>
 								</div>
 							</div>
-							<p class="mt-2 mb-4 line-clamp-3">
-								{faker.word.words({ count: { min: 20, max: 9999 } }).toLocaleString('en-US')}
-							</p>
+							{@render copy('mt-2')}
 						</div>
 					</a>
 				</li>
@@ -112,3 +73,43 @@
 		{/each}
 	</ul>
 </section>
+
+{#snippet likeBtn()}
+	<Button
+		type="button"
+		onclickcapture={(e) => {
+			e.stopPropagation();
+			e.preventDefault();
+			console.log('like post!');
+		}}
+		aria-label="Like this post"
+		class="cursor-pointer"
+	>
+		<HearIcon class="size-4" />
+		<span class="font-medium sm:text-sm/6"
+			>{faker.number.int({ min: 0, max: 9999 }).toLocaleString('en-US')}</span
+		>
+	</Button>
+{/snippet}
+
+{#snippet tag()}
+	<span class="my-1 flex items-center md:my-0">
+		<HashTag class="size-3" />
+		<span class="ml-0.5 text-xs leading-none">{faker.book.genre()}</span>
+	</span>
+{/snippet}
+
+{#snippet commentCount()}
+	<div class="ml-0 flex items-center">
+		<MessageCircleMoreIcon class="size-3" />
+		<span class="ml-0.5 text-xs leading-none">{faker.number.int({ min: 0, max: 50 })}</span>
+	</div>
+{/snippet}
+
+{#snippet title()}
+	<h2 class="max-w-60 truncate font-semibold sm:max-w-md">{faker.book.title()}</h2>
+{/snippet}
+
+{#snippet copy(mt)}
+	<p class="{mt} mb-4 line-clamp-3">{faker.word.words({ count: { min: 20, max: 100 } })}</p>
+{/snippet}
