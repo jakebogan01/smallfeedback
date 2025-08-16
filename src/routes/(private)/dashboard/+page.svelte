@@ -11,6 +11,8 @@
 	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
+
+	let toggleLayout = $state(false);
 </script>
 
 <Head
@@ -56,9 +58,9 @@
 					<Controls />
 				</aside>
 				<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
-					<Nav />
+					<Nav bind:toggleLayout />
 					<CardFilters />
-					<Cards />
+					<Cards {toggleLayout} />
 					<Pagination />
 				</div>
 			</div>

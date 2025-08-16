@@ -123,7 +123,7 @@
 		@apply border-border outline-ring/50;
 	}
 	body {
-		@apply bg-background text-foreground;
+		@apply bg-border text-foreground;
 	}
 }
 
@@ -131,10 +131,6 @@
 	.card-foundation {
 		@apply overflow-hidden rounded-md border border-transparent bg-background sm:shadow;
 	}
-}
-
-body {
-	@apply bg-slate-100/95;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -187,5 +183,12 @@ body {
 			100% 0%
 		);
 		animation: 1.5s ease-in both move-in;
+	}
+}
+
+@media (width >= 48rem) {
+	html {
+		overflow-y: scroll;
+		scrollbar-gutter: stable;
 	}
 }
