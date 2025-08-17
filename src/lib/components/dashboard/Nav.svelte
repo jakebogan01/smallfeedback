@@ -4,7 +4,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LayoutGridIcon from '@lucide/svelte/icons/layout-grid';
 
-	let { toggleLayout = $bindable() } = $props();
+	let { toggleLayout = () => {} } = $props();
 </script>
 
 <nav aria-labelledby="feedback-overview-title">
@@ -20,9 +20,7 @@
 			>
 				<Button
 					type="button"
-					onclick={() => {
-						toggleLayout = !toggleLayout;
-					}}
+					onclick={toggleLayout}
 					aria-label="Toggle layouts"
 					class="hidden size-10 cursor-pointer bg-background text-primary md:flex"
 				>

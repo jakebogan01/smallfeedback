@@ -8,6 +8,8 @@
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import { Button } from '$lib/components/ui/button/index.js';
+
+	let { toggleNotifications = () => {} } = $props();
 </script>
 
 <section aria-labelledby="controls">
@@ -31,7 +33,12 @@
 			<SunIcon class="hidden size-5 dark:inline" />
 			<MoonIcon class="size-5 dark:hidden" />
 		</Button>
-		<Button type="button" aria-label="Show notifications" class="cursor-pointer py-5.5">
+		<Button
+			type="button"
+			onclick={toggleNotifications}
+			aria-label="Show notifications"
+			class="cursor-pointer py-5.5"
+		>
 			<BellIcon class="size-5" />
 		</Button>
 		<Button href={SETTINGS} aria-label="Visit account settings" class="cursor-pointer py-5.5">

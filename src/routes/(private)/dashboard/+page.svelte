@@ -9,10 +9,15 @@
 	import Pagination from '$lib/components/dashboard/Pagination.svelte';
 	import CardFilters from '$lib/components/dashboard/CardFilters.svelte';
 	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
+	import Notifications from '$lib/components/dashboard/Notifications.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 
-	let toggleLayout = $state(false);
+	let showNotifications = $state(false),
+		changeLayout = $state(false);
+
+	const toggleLayout = () => (changeLayout = !changeLayout);
+	const toggleNotifications = () => (showNotifications = !showNotifications);
 </script>
 
 <Head
@@ -55,15 +60,19 @@
 					<GroupGraphicCard />
 					<TagFilterCard />
 					<CategoryCard />
-					<Controls />
+					<Controls {toggleNotifications} />
 				</aside>
 				<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
-					<Nav bind:toggleLayout />
+					<Nav {toggleLayout} />
 					<CardFilters />
-					<Cards {toggleLayout} />
+					<Cards {changeLayout} />
 					<Pagination />
 				</div>
 			</div>
 		</div>
 	</main>
 </div>
+
+{#if showNotifications}
+	<Notifications />
+{/if}

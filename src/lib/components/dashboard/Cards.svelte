@@ -9,19 +9,19 @@
 	// import { Skeleton } from "$lib/components/ui/skeleton/index.js";
 	import MessageCircleMoreIcon from '@lucide/svelte/icons/message-circle-more';
 
-	let { toggleLayout } = $props();
+	let { changeLayout } = $props();
 </script>
 
 <section class="mt-3" id="feedback-cards">
 	<ul
 		role="list"
-		class="space-y-3 rounded-md bg-background/30 sm:p-4 {toggleLayout
-			? 'grid-cols-1 grid-cols-2 gap-4 sm:grid xl:grid-cols-3'
-			: 'block'}"
+		class="grid space-y-3 rounded-md bg-background/30 sm:p-4 {changeLayout
+			? 'grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'
+			: 'grid-cols-1'}"
 	>
 		{#each { length: faker.number.int({ min: 1, max: 10 }) }, i (i)}
 			{@const link = `${DASHBOARD}/post/title`}
-			{#if toggleLayout}
+			{#if changeLayout}
 				<li class="card-foundation">
 					<a href={link} class="flex flex-col" aria-label="View Feedback title">
 						<div class="flex items-center justify-between px-4 pt-4 sm:px-6 sm:pt-6">
@@ -78,14 +78,14 @@
 		<!--            <div class="mr-5 px-4 pt-4 sm:pt-6 sm:pb-6 sm:pl-8">-->
 		<!--                <Skeleton class="h-9 w-20 rounded bg-black/30" />-->
 		<!--            </div>-->
-		<!--            <div class="flex-1 px-4 py-2 sm:pt-6 sm:pr-8 sm:pl-8 md:pl-0">-->
+		<!--            <div class="relative flex-1 px-4 py-2 sm:pt-6 sm:pr-8 sm:pl-8 md:pl-0">-->
 		<!--                <div class="flex items-center justify-between">-->
 		<!--                    <div class="flex flex-col items-start space-x-3 md:flex-row md:items-center">-->
 		<!--                        <Skeleton class="h-6 w-50 rounded bg-black/30" />-->
 		<!--                    </div>-->
 		<!--                </div>-->
-		<!--                <Skeleton class="mt-4 h-6 w-194 rounded bg-black/30" />-->
-		<!--                <Skeleton class="mt-2 h-6 w-194 rounded bg-black/30" />-->
+		<!--                <Skeleton class="mt-4 h-6 w-full rounded bg-black/30" />-->
+		<!--                <Skeleton class="mt-2 h-6 w-full rounded bg-black/30" />-->
 		<!--            </div>-->
 		<!--        </div>-->
 		<!--    </li>-->

@@ -25,6 +25,6 @@
 
 <ModeWatcher />
 
-<Toaster />
+<Toaster closeButton />
 
 {@render children?.()}
