@@ -1,8 +1,10 @@
 <script>
+    import { faker } from "@faker-js/faker";
 	import Logo from '$lib/components/Logo.svelte';
 	import Head from '$lib/components/Head.svelte';
 	import Nav from '$lib/components/dashboard/Nav.svelte';
 	import Cards from '$lib/components/dashboard/Cards.svelte';
+    import * as Command from "$lib/components/ui/command/index.js";
 	import Controls from '$lib/components/dashboard/Controls.svelte';
 	import AlignJustifyIcon from '@lucide/svelte/icons/align-justify';
 	import MobileNav from '$lib/components/dashboard/MobileNav.svelte';
@@ -14,10 +16,18 @@
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 
 	let showNotifications = $state(false),
-		changeLayout = $state(false);
+		changeLayout = $state(false),
+        open = $state(false);
 
 	const toggleLayout = () => (changeLayout = !changeLayout);
 	const toggleNotifications = () => (showNotifications = !showNotifications);
+
+    const handleKeydown = (e) => {
+        if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+            e.preventDefault();
+            open = !open;
+        }
+    }
 </script>
 
 <Head
@@ -25,6 +35,29 @@
 	description="View all feedback posts on your SmallFeedBack boards in one place. Track ideas, read opinions, and engage with anonymous community insights."
 	keywords="feedback dashboard, view feedback posts, anonymous feedback list, feedback board manager, track community opinions, board insights"
 />
+
+<svelte:document onkeydown={handleKeydown} />
+
+<p class="text-muted-foreground text-sm">
+    Press
+    <kbd class="bg-muted text-muted-foreground pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100">
+        <span class="text-xs">⌘</span>K
+    </kbd>
+</p>
+<Command.Dialog bind:open>
+    <Command.Input placeholder="Type a command or search..." />
+    <Command.List>
+        <Command.Empty>No results found.</Command.Empty>
+        <Command.Group heading="Suggestions">
+            {#each { length: faker.number.int({ min: 1, max: 5 }) }, i (i)}
+                <Command.Item class="truncate !p-0">
+                    <a href="/" class="block w-full py-3 px-2">{faker.book.title()}</a>
+                </Command.Item>
+            {/each}
+        </Command.Group>
+        <Command.Separator />
+    </Command.List>
+</Command.Dialog>
 
 <div class="min-h-full">
 	<header class="pt-10 pb-5.5 lg:py-0">
