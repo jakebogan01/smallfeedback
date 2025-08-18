@@ -1,4 +1,6 @@
 <script>
+	import { faker } from '@faker-js/faker';
+	import toast from 'svelte-5-french-toast';
 	import Logo from '$lib/components/Logo.svelte';
 	import Head from '$lib/components/Head.svelte';
 	import Nav from '$lib/components/dashboard/Nav.svelte';
@@ -14,12 +16,23 @@
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 
-	let showNotifications = $state(false),
-		changeLayout = $state(false),
+	let changeLayout = $state(false),
 		open = $state(false);
 
 	const toggleLayout = () => (changeLayout = !changeLayout);
-	const toggleNotifications = () => (showNotifications = !showNotifications);
+	const toggleNotifications = () => {
+		for (let i = 0; i < 10; i++) {
+			toast(Notifications, {
+				position: 'bottom-right',
+				duration: 4000 + i * 150,
+				iconTheme: {
+					primary: '#713200',
+					secondary: '#FFFAEE'
+				},
+				props: { avatar: faker.image.avatar(), name: faker.person.fullName() }
+			});
+		}
+	};
 </script>
 
 <Head
@@ -74,9 +87,5 @@
 		</div>
 	</main>
 </div>
-
-{#if showNotifications}
-	<Notifications />
-{/if}
 
 <Search bind:open />
