@@ -17,20 +17,36 @@
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 
 	let changeLayout = $state(false),
+		lastToastIds = $state([]),
+		isShowing = $state(false),
 		open = $state(false);
 
 	const toggleLayout = () => (changeLayout = !changeLayout);
+
 	const toggleNotifications = () => {
-		for (let i = 0; i < 10; i++) {
-			toast(Notifications, {
-				position: 'bottom-right',
-				duration: 4000 + i * 150,
-				iconTheme: {
-					primary: '#713200',
-					secondary: '#FFFAEE'
-				},
-				props: { avatar: faker.image.avatar(), name: faker.person.fullName() }
-			});
+		if (isShowing) {
+			toast.dismiss();
+			lastToastIds = [];
+			isShowing = false;
+		} else {
+			lastToastIds = [];
+			for (let i = 0; i < 10; i++) {
+				const id = toast(Notifications, {
+					position: 'bottom-right',
+					duration: 4000 + i * 150,
+					props: {
+						avatar: faker.image.avatar(),
+						name: faker.person.fullName()
+					}
+				});
+				lastToastIds.push(id);
+			}
+			isShowing = true;
+			const maxDuration = 4000 + (10 - 1) * 150;
+			setTimeout(() => {
+				isShowing = false;
+				lastToastIds = [];
+			}, maxDuration);
 		}
 	};
 </script>
