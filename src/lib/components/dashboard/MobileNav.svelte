@@ -1,51 +1,107 @@
 <script>
+	import { faker } from '@faker-js/faker';
+	import { toggleMode } from 'mode-watcher';
+	import XIcon from '@lucide/svelte/icons/x';
+	import { fade, fly } from 'svelte/transition';
+	import { logout } from '$lib/utils/logout.js';
 	import Logo from '$lib/components/Logo.svelte';
+	import SunIcon from '@lucide/svelte/icons/sun';
+	import MoonIcon from '@lucide/svelte/icons/moon';
+	import BellIcon from '@lucide/svelte/icons/bell';
+	import LogOutIcon from '@lucide/svelte/icons/log-out';
+	import { DASHBOARD, SETTINGS } from '$lib/constants.js';
+	import SettingsIcon from '@lucide/svelte/icons/settings';
+	import { Button } from '$lib/components/ui/button/index.js';
+
+	let { toggleMobileMenu = () => {}, toggleNotifications = () => {} } = $props();
 </script>
 
-<div class="hidden">
+<div class="lg:hidden">
 	<div
+		transition:fade={{ duration: 100 }}
 		aria-hidden="true"
-		class="fixed inset-0 z-20 overflow-hidden bg-slate-400/20 backdrop-blur-sm dark:bg-black/40"
+		class="fixed inset-0 z-20 overflow-hidden bg-black/20 backdrop-blur-sm"
 	></div>
-	<div class="absolute inset-x-0 top-0 z-30 mx-auto w-full max-w-3xl origin-top transform p-2 sm:transition">
-		<div
-			id="menu"
-			class="dark:bg-dark-secondary rounded-lg bg-white shadow-xl ring-1 ring-slate-900/5 dark:shadow-none"
-		>
-			<div class="pt-3 pb-2">
+	<div class="absolute inset-x-0 top-0 z-30 mx-auto w-full max-w-3xl origin-top p-2">
+		<div transition:fly={{ y: 20, duration: 300 }} id="menu" class="rounded-md bg-background sm:shadow-xl">
+			<div class="pt-3">
 				<div class="flex items-center justify-between px-4">
-					<Logo linkTo="/" label="Go to client dashboard" />
+					<Logo linkTo={DASHBOARD} label="Go to dashboard" />
 					<div class="-mr-2">
-						<button type="button" aria-label="Open menu">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								fill="currentColor"
-								class="size-8 text-slate-700 dark:text-white"
-								><path
-									fill-rule="evenodd"
-									d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z"
-									clip-rule="evenodd"
-								/></svg
-							>
+						<button type="button" onclick={toggleMobileMenu} aria-label="Open menu" class="cursor-pointer">
+							<XIcon class="size-8" />
 						</button>
 					</div>
 				</div>
-				<div class="mt-4 flex flex-col rounded-2xl p-4 text-lg tracking-tight text-slate-700 dark:text-white">
-					<a href="/" aria-label="Show features" title="Show Features" class="p-2">Features</a>
-					<a href="/" aria-label="Show benefits" title="Show Benefits" class="p-2">Benefits</a>
-					<a href="/" aria-label="Show FAQ" title="Show FAQ" class="p-2">FAQ</a>
-					<hr class="dark:border-gray-secondary mx-2 mt-2 mb-6 border-slate-300/40" />
-					<a href="/" aria-label="Go to settings" title="Go to Settings" class="mb-2 p-2">Settings</a>
-					<form method="POST">
-						<button
-							type="submit"
-							aria-label="Sign out"
-							title="Sign Out"
-							class="block w-full rounded-md bg-blue-600 p-2 text-left font-medium text-white sm:transition sm:hover:bg-blue-500 dark:bg-emerald-600 sm:dark:hover:bg-emerald-500"
-							>Sign out</button
-						>
-					</form>
+				<div class="flex flex-col p-4">
+					<div class="flex items-center justify-between px-3">
+						<div class="flex min-w-80 items-center">
+							<div class="shrink-0 pt-0.5">
+								<img
+									src={faker.image.avatar()}
+									alt={faker.person.fullName()}
+									width="40"
+									height="40"
+									class="size-10 rounded-full bg-white"
+								/>
+							</div>
+							<div class="ml-3 flex-1 text-sm">
+								<p class="font-semibold">{faker.person.fullName()}</p>
+								<p class="text-xs">{faker.word.sample()}@gmail.com</p>
+							</div>
+						</div>
+						<div class="flex items-center space-x-4">
+							<Button
+								type="button"
+								onclick={() => {
+									if (!document.startViewTransition) {
+										toggleMode();
+										return;
+									}
+									document.startViewTransition(() => toggleMode());
+								}}
+								aria-label="Toggle theme"
+								variant="ghost"
+								title="Toggle theme"
+								class="cursor-pointer !p-0"
+							>
+								<SunIcon class="hidden size-5 dark:inline" />
+								<MoonIcon class="size-5 dark:hidden" />
+							</Button>
+							<Button
+								type="button"
+								aria-label="Show notifications"
+								onclick={toggleNotifications}
+								variant="ghost"
+								title="Show notifications"
+								class="cursor-pointer !p-0"
+							>
+								<BellIcon class="size-5" />
+							</Button>
+						</div>
+					</div>
+					<hr class="mx-2 mt-2" />
+					<Button
+						href={SETTINGS}
+						variant="ghost"
+						aria-label="Visit account settings"
+						title="Account settings"
+						class="h-10 justify-start"
+					>
+						<SettingsIcon class="size-5" />
+						<span>Settings</span>
+					</Button>
+					<Button
+						type="button"
+						variant="ghost"
+						onclick={logout}
+						aria-label="Sign out"
+						title="Sign out"
+						class="h-10 cursor-pointer justify-start"
+					>
+						<LogOutIcon class="size-4.5" />
+						<span>Sign out</span>
+					</Button>
 				</div>
 			</div>
 		</div>

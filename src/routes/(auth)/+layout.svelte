@@ -38,7 +38,7 @@
 			alt=""
 			width="1200"
 			height="1200"
-			class="absolute inset-0 size-full object-cover"
+			class="absolute inset-0 size-full object-cover brightness-[0.5] grayscale"
 		/>
 	</div>
 </div>
