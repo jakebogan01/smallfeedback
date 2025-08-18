@@ -192,3 +192,7 @@
 		scrollbar-gutter: stable;
 	}
 }
+
+[data-dialog-close] {
+	cursor: pointer;
+}
