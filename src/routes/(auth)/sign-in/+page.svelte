@@ -6,7 +6,7 @@
 	import { DASHBOARD, SIGNUP } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { superForm, defaults } from 'sveltekit-superforms';
-	import { baseAuthSchema } from '$lib/utils/schemas/auth.js';
+	import { baseAuthSchema } from '$lib/schemas/auth.js';
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 
 	const formSchema = baseAuthSchema;

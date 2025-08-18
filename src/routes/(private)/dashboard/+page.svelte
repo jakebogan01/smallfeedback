@@ -13,8 +13,10 @@
 	import Notifications from '$lib/components/dashboard/Notifications.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
+	import CreateSuggestionForm from "$lib/components/dashboard/CreateSuggestionForm.svelte";
 
-	let changeLayout = $state(false),
+    let showCreateForm = $state(false),
+        changeLayout = $state(false),
 		lastToastIds = $state([]),
 		isShowing = $state(false),
 		open = $state(false);
@@ -47,6 +49,10 @@
 			}, maxDuration);
 		}
 	};
+
+	const toggleCreateForm = () => {
+		showCreateForm = true;
+    }
 </script>
 
 <Head
@@ -69,10 +75,14 @@
 					<Controls {toggleNotifications} />
 				</aside>
 				<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
-					<Nav {toggleLayout} {changeLayout} />
-					<CardFilters bind:open />
-					<Cards {changeLayout} />
-					<Pagination />
+					<Nav {toggleLayout} {changeLayout} {toggleCreateForm} />
+                    {#if !showCreateForm}
+                        <CreateSuggestionForm />
+                    {:else}
+                        <CardFilters bind:open />
+					    <Cards {changeLayout} />
+					    <Pagination />
+                    {/if}
 				</div>
 			</div>
 		</div>

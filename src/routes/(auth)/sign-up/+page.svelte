@@ -9,7 +9,7 @@
 	import * as Password from '$lib/components/ui/password';
 	import * as Form from '$lib/components/ui/form/index.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
-	import { baseAuthSchema } from '$lib/utils/schemas/auth.js';
+	import { baseAuthSchema } from '$lib/schemas/auth.js';
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 
 	let btnDisabled = $state(false);

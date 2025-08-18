@@ -1,6 +1,6 @@
 <script>
 	import { faker } from '@faker-js/faker';
-	import { fly } from 'svelte/transition';
+	import { fly, fade } from 'svelte/transition';
 	import { DASHBOARD } from '$lib/constants.js';
 	import HashTag from '@lucide/svelte/icons/hash';
 	import HearIcon from '@lucide/svelte/icons/heart';
@@ -13,7 +13,7 @@
 	let { changeLayout } = $props();
 </script>
 
-<section class="mt-3" id="feedback-cards">
+<section transition:fade class="mt-3" id="feedback-cards">
 	<ul
 		role="list"
 		class="grid space-y-3 rounded-md bg-background/30 sm:p-4 {changeLayout
