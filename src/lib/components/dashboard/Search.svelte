@@ -5,7 +5,7 @@
 	let { open = $bindable() } = $props();
 
 	const handleKeydown = (e) => {
-		if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+		if (e.key === 'k' && (e.metaKey || e.altKey)) {
 			e.preventDefault();
 			open = !open;
 		}

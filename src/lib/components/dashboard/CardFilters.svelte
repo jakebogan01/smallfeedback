@@ -1,7 +1,10 @@
 <script>
+	import { Kbd } from '$lib/components/ui/kbd';
+	import { isMac } from '$lib/hooks/is-mac.svelte.js';
 	import SearchIcon from '@lucide/svelte/icons/search';
 	import ThumbsUpIcon from '@lucide/svelte/icons/thumbs-up';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
+	import { cmdOrCtrl, optionOrAlt } from '$lib/hooks/is-mac.svelte';
 	import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
 	import MessageCircleMoreIcon from '@lucide/svelte/icons/message-circle-more';
 
@@ -17,11 +20,7 @@
 	>
 		<SearchIcon class="size-4 min-w-4" />
 		<span class="text-sm text-muted-foreground">
-			<kbd
-				class="pointer-events-none inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 select-none"
-			>
-				<span class="text-xs">⌘</span>K
-			</kbd>
+			{@render pcType()}
 		</span>
 	</button>
 	<ToggleGroup.Root type="multiple" class="divide-x">
@@ -36,3 +35,13 @@
 		</ToggleGroup.Item>
 	</ToggleGroup.Root>
 </div>
+
+{#snippet pcType()}
+	<span class="sr-only">{isMac ? 'Command/Ctrl' : 'Option/Alt'}</span>
+	<Kbd
+		class="pointer-events-none inline-flex h-5 items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 select-none"
+	>
+		<span class="text-xs">{isMac ? cmdOrCtrl : optionOrAlt}</span>
+		<span class="mb-0.5">K</span>
+	</Kbd>
+{/snippet}
