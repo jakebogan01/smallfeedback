@@ -3,7 +3,7 @@
 	import LayersIcon from '@lucide/svelte/icons/layers';
 	import { Button } from '$lib/components/ui/button/index.js';
 
-	let { toggleLayout = () => {}, toggleCreateForm = () => {}, changeLayout } = $props();
+	let { toggleLayout = () => {}, toggleCreateForm = () => {}, changeLayout, showCreateForm } = $props();
 </script>
 
 <nav aria-labelledby="feedback-overview-title">
@@ -71,7 +71,8 @@
 				</Button>
 				<Button
 					type="button"
-                    onclick={toggleCreateForm}
+					onclick={toggleCreateForm}
+					disabled={showCreateForm}
 					aria-label="Add your feedback"
 					class="cursor-pointer bg-background py-5 text-sm font-bold text-black">Add Feedback</Button
 				>
