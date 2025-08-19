@@ -12,8 +12,12 @@
 	import { DASHBOARD, SETTINGS } from '$lib/constants.js';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { toggleNotifications } from '$lib/utils/notifications.js';
 
-	let { toggleMobileMenu = () => {}, toggleNotifications = () => {} } = $props();
+	let { toggleMobileMenu = () => {} } = $props();
+
+	const handleNotifications = () =>
+		toggleNotifications(faker.person.fullName(), 'Has commented on your pose!');
 </script>
 
 <div class="lg:hidden">
@@ -71,7 +75,7 @@
 							<Button
 								type="button"
 								aria-label="Show notifications"
-								onclick={toggleNotifications}
+								onclick={handleNotifications}
 								variant="ghost"
 								title="Show notifications"
 								class="cursor-pointer !p-0"

@@ -3,7 +3,6 @@
 	import MenuIcon from '@lucide/svelte/icons/menu';
 	import MobileNav from '$lib/components/dashboard/MobileNav.svelte';
 
-	let { toggleNotifications = () => {} } = $props();
 	let showMobileMenu = $state(false);
 
 	const toggleMobileMenu = () => (showMobileMenu = !showMobileMenu);
@@ -32,6 +31,6 @@
 		</div>
 	</div>
 	{#if showMobileMenu}
-		<MobileNav {toggleNotifications} {toggleMobileMenu} />
+		<MobileNav {toggleMobileMenu} />
 	{/if}
 </header>

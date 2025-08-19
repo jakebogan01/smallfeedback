@@ -1,4 +1,5 @@
 <script>
+	import { faker } from '@faker-js/faker';
 	import { toggleMode } from 'mode-watcher';
 	import { SETTINGS } from '$lib/constants.js';
 	import { logout } from '$lib/utils/logout.js';
@@ -8,8 +9,10 @@
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { toggleNotifications } from '$lib/utils/notifications.js';
 
-	let { toggleNotifications = () => {} } = $props();
+	const handleNotifications = () =>
+		toggleNotifications(faker.person.fullName(), 'Has commented on your pose!');
 </script>
 
 <section aria-labelledby="controls">
@@ -43,7 +46,7 @@
 		</Button>
 		<Button
 			type="button"
-			onclick={toggleNotifications}
+			onclick={handleNotifications}
 			aria-label="Show notifications"
 			title="Show notifications"
 			class="cursor-pointer py-5.5"
