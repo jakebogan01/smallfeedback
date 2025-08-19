@@ -22,7 +22,7 @@
 		open = $state(false),
 		resetTimeout;
 
-	const TOAST_COUNT = 10;
+	const TOAST_COUNT = 6;
 	const BASE_DURATION = 4000;
 	const STAGGER_DELAY = 150;
 
