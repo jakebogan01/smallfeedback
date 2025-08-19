@@ -208,7 +208,10 @@
 	@apply prose min-h-40 w-full max-w-none prose-neutral focus:outline-none;
 }
 .ql-editor img {
-    max-width: 60% !important;
-    min-width: 40% !important;
-    height: auto;
+	min-width: 40% !important;
+	height: auto;
+}
+.ql-snow .ql-tooltip + div > :nth-child(-n + 4) {
+	border-radius: 100% !important;
+	background: blue !important;
 }

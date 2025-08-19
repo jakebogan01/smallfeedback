@@ -8,11 +8,11 @@
 	import { cn } from '$lib/utils.js';
 	import pb from '$lib/pocketbase.js';
 	import { toast } from 'svelte-sonner';
+	import ImageResize from 'quill-image-resize-vue';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Loader2Icon from '@lucide/svelte/icons/loader-2';
 	import * as Form from '$lib/components/ui/form/index.js';
-	import ImageResize from 'quill-image-resize-module-react';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import * as Popover from '$lib/components/ui/popover/index.js';
