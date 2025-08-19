@@ -207,3 +207,8 @@
 .ql-editor {
 	@apply prose min-h-40 w-full max-w-none prose-neutral focus:outline-none;
 }
+.ql-editor img {
+    max-width: 60% !important;
+    min-width: 40% !important;
+    height: auto;
+}
