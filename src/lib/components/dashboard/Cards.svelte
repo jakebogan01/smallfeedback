@@ -16,7 +16,7 @@
 <section transition:fade class="mt-3" id="feedback-cards">
 	<ul
 		role="list"
-		class="grid space-y-3 rounded-md bg-background/30 sm:p-4 {changeLayout
+		class="grid gap-3 rounded-md bg-background/30 sm:p-4 {changeLayout
 			? 'grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'
 			: 'grid-cols-1'}"
 	>

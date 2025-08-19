@@ -18,31 +18,40 @@
 		changeLayout = $state(false),
 		lastToastIds = $state([]),
 		isShowing = $state(false),
-		open = $state(false);
+		open = $state(false),
+		resetTimeout;
+
+	const TOAST_COUNT = 10;
+	const BASE_DURATION = 4000;
+	const STAGGER_DELAY = 150;
 
 	const toggleLayout = () => (changeLayout = !changeLayout);
 	const toggleCreateForm = () => (showCreateForm = !showCreateForm);
 
 	const toggleNotifications = () => {
 		if (isShowing) {
-			toast.dismiss();
+			lastToastIds.forEach(id => toast.dismiss(id));
 			lastToastIds = [];
 			isShowing = false;
-		} else {
-			lastToastIds = [];
-			for (let i = 0; i < 10; i++) {
-				const id = toast(faker.person.fullName(), {
-					description: 'Has commented on your post!'
-				});
-				lastToastIds.push(id);
+			if (resetTimeout) {
+				clearTimeout(resetTimeout);
+				resetTimeout = null;
 			}
-			isShowing = true;
-			const maxDuration = 4000 + (10 - 1) * 150;
-			setTimeout(() => {
-				isShowing = false;
-				lastToastIds = [];
-			}, maxDuration);
+			return;
 		}
+		lastToastIds = Array.from({ length: TOAST_COUNT }, () => {
+			return toast(faker.person.fullName(), {
+				description: 'Has commented on your post!'
+			});
+		});
+		isShowing = true;
+		const maxDuration = BASE_DURATION + (TOAST_COUNT - 1) * STAGGER_DELAY;
+		resetTimeout = setTimeout(() => {
+			lastToastIds.forEach(id => toast.dismiss(id));
+			lastToastIds = [];
+			isShowing = false;
+			resetTimeout = null;
+		}, maxDuration);
 	};
 </script>
 
