@@ -1,6 +1,6 @@
 <script>
+	import { toast } from 'svelte-sonner';
 	import { faker } from '@faker-js/faker';
-	import toast from 'svelte-5-french-toast';
 	import Head from '$lib/components/Head.svelte';
 	import Nav from '$lib/components/dashboard/Nav.svelte';
 	import Cards from '$lib/components/dashboard/Cards.svelte';
@@ -10,7 +10,6 @@
 	import Pagination from '$lib/components/dashboard/Pagination.svelte';
 	import CardFilters from '$lib/components/dashboard/CardFilters.svelte';
 	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
-	import Notifications from '$lib/components/dashboard/Notifications.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 	import CreateSuggestionForm from '$lib/components/dashboard/CreateSuggestionForm.svelte';
@@ -32,13 +31,8 @@
 		} else {
 			lastToastIds = [];
 			for (let i = 0; i < 10; i++) {
-				const id = toast(Notifications, {
-					position: 'bottom-right',
-					duration: 4000 + i * 100,
-					props: {
-						avatar: faker.image.avatar(),
-						name: faker.person.fullName()
-					}
+				const id = toast(faker.person.fullName(), {
+					description: 'Has commented on your post!'
 				});
 				lastToastIds.push(id);
 			}

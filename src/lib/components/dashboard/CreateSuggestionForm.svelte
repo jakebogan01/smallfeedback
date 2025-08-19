@@ -3,8 +3,8 @@
 	import { useId } from 'bits-ui';
 	import { cn } from '$lib/utils.js';
 	import pb from '$lib/pocketbase.js';
+	import { toast } from 'svelte-sonner';
 	import { fade } from 'svelte/transition';
-	import toast from 'svelte-5-french-toast';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Loader2Icon from '@lucide/svelte/icons/loader-2';
@@ -48,12 +48,12 @@
 						console.log(form.data);
 						btnDisabled = true;
 						await pb.collection('posts').create(form.data);
-						toast.success('Suggestion successfully created!', { position: 'bottom-right' });
+						toast.success('Suggestion successfully created!');
 						toggleCreateForm();
 					} catch (error) {
 						btnDisabled = false;
 						console.dir(error?.response, { depth: null });
-						toast.error(error?.message, { position: 'bottom-right' });
+						toast.error(error?.message);
 					}
 				}
 			}
