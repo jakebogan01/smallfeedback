@@ -196,3 +196,22 @@
 [data-dialog-close] {
 	cursor: pointer;
 }
+
+/* Override Quill defaults with Tailwind-like styles */
+.ql-toolbar {
+	@apply flex flex-wrap gap-1 rounded-t-md !border-t-transparent !border-r-transparent !border-b-input !border-l-transparent bg-background p-2;
+}
+.ql-container {
+	@apply h-full min-h-40 rounded-b-md bg-background;
+}
+.ql-editor {
+	@apply prose min-h-40 w-full max-w-none prose-neutral focus:outline-none;
+}
+.ql-editor img {
+	min-width: 40% !important;
+	height: auto;
+}
+.ql-snow .ql-tooltip + div > :nth-child(-n + 4) {
+	border-radius: 100% !important;
+	background: blue !important;
+}

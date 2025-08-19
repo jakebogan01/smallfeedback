@@ -1,9 +1,9 @@
 <script>
 	import '../app.css';
+	import { Toaster } from 'svelte-sonner';
 	import { ModeWatcher } from 'mode-watcher';
 	import { BProgress } from '@bprogress/core';
 	import favicon from '$lib/assets/favicon.svg';
-	import { Toaster } from 'svelte-5-french-toast';
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
 
 	BProgress.configure({
@@ -25,6 +25,6 @@
 
 <ModeWatcher />
 
-<Toaster />
+<Toaster closeButton />
 
 {@render children?.()}

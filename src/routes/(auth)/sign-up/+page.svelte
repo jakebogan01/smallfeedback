@@ -1,15 +1,15 @@
 <script>
 	import { z } from 'zod';
 	import pb from '$lib/pocketbase.js';
+	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import toast from 'svelte-5-french-toast';
 	import Head from '$lib/components/Head.svelte';
 	import { DASHBOARD, SIGNIN } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import * as Password from '$lib/components/ui/password';
 	import * as Form from '$lib/components/ui/form/index.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
-	import { baseAuthSchema } from '$lib/utils/schemas/auth.js';
+	import { baseAuthSchema } from '$lib/schemas/auth.js';
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 
 	let btnDisabled = $state(false);
@@ -43,11 +43,11 @@
 						await pb.collection('users').create(form.data);
 						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
 						await goto(DASHBOARD);
-						toast.success('Account successfully created!', { position: 'bottom-right' });
+						toast.success('Account successfully created!');
 					} catch (error) {
 						btnDisabled = false;
 						console.dir(error?.response, { depth: null });
-						toast.error(error?.message, { position: 'bottom-right' });
+						toast.error(error?.message);
 					}
 				}
 			}

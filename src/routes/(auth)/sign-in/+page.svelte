@@ -1,12 +1,12 @@
 <script>
 	import pb from '$lib/pocketbase.js';
+	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import toast from 'svelte-5-french-toast';
 	import Head from '$lib/components/Head.svelte';
 	import { DASHBOARD, SIGNUP } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import { superForm, defaults } from 'sveltekit-superforms';
-	import { baseAuthSchema } from '$lib/utils/schemas/auth.js';
+	import { baseAuthSchema } from '$lib/schemas/auth.js';
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 
 	const formSchema = baseAuthSchema;
@@ -30,11 +30,11 @@
 						btnDisabled = true;
 						await pb.collection('users').authWithPassword(form.data.email, form.data.password);
 						await goto(DASHBOARD);
-						toast.success('Successfully signed in!', { position: 'bottom-right' });
+						toast.success('Successfully signed in!');
 					} catch (error) {
 						btnDisabled = false;
 						console.dir(error?.response, { depth: null });
-						toast.error(error?.message, { position: 'bottom-right' });
+						toast.error(error?.message);
 					}
 				}
 			}
