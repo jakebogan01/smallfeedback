@@ -12,6 +12,7 @@
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Loader2Icon from '@lucide/svelte/icons/loader-2';
 	import * as Form from '$lib/components/ui/form/index.js';
+	import ImageResize from 'quill-image-resize-module-react';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import * as Popover from '$lib/components/ui/popover/index.js';
@@ -19,6 +20,8 @@
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import { createSuggestionSchema } from '$lib/schemas/createSuggestion.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
+
+	Quill.register('modules/imageResize', ImageResize);
 
 	const formSchema = createSuggestionSchema;
 	let { toggleCreateForm = () => {} } = $props();
@@ -95,8 +98,9 @@
 		];
 		quill = new Quill(editor, {
 			modules: {
-				toolbar: {
-					container: toolbarOptions
+				toolbar: { container: toolbarOptions },
+				imageResize: {
+					modules: ['Resize', 'DisplaySize', 'Toolbar']
 				}
 			},
 			theme: 'snow'
