@@ -3,12 +3,11 @@
 	import { faker } from '@faker-js/faker';
 	import { DASHBOARD } from '$lib/constants.js';
 	import HashTag from '@lucide/svelte/icons/hash';
-	import HearIcon from '@lucide/svelte/icons/heart';
 	import HistoryIcon from '@lucide/svelte/icons/history';
 	import { toISODate, timeAgo } from '$lib/utils/date.js';
-	import { Button } from '$lib/components/ui/button/index.js';
 	// import { Skeleton } from "$lib/components/ui/skeleton/index.js";
 	import MessageCircleMoreIcon from '@lucide/svelte/icons/message-circle-more';
+	import LikeButton from '$lib/components/LikeButton.svelte';
 
 	let { changeLayout } = $props();
 </script>
@@ -95,21 +94,7 @@
 </section>
 
 {#snippet likeBtn()}
-	<Button
-		type="button"
-		onclickcapture={(e) => {
-			e.stopPropagation();
-			e.preventDefault();
-			console.log('like post!');
-		}}
-		aria-label="Like this post"
-		class="cursor-pointer"
-	>
-		<HearIcon class="size-4" />
-		<span class="font-medium sm:text-sm/6"
-			>{faker.number.int({ min: 0, max: 9999 }).toLocaleString('en-US')}</span
-		>
-	</Button>
+	<LikeButton />
 {/snippet}
 
 {#snippet tag()}

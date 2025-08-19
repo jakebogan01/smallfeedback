@@ -5,7 +5,7 @@
 	import Cards from '$lib/components/dashboard/Cards.svelte';
 	import Search from '$lib/components/dashboard/Search.svelte';
 	import Controls from '$lib/components/dashboard/Controls.svelte';
-	import Pagination from '$lib/components/dashboard/Pagination.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
 	import CardFilters from '$lib/components/dashboard/CardFilters.svelte';
 	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
