@@ -76,7 +76,7 @@
 					<Controls {toggleNotifications} />
 				</aside>
 				<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
-					<Nav {toggleLayout} {changeLayout} {toggleCreateForm} {showCreateForm} />
+					<Nav {toggleCreateForm} {showCreateForm} />
 					{#if showCreateForm}
 						<div
 							in:fly={{ y: 50, duration: 500, delay: 500 }}
@@ -87,7 +87,7 @@
 						</div>
 					{:else}
 						<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }}>
-							<CardFilters bind:open />
+							<CardFilters {toggleLayout} {changeLayout} bind:open />
 							<Cards {changeLayout} />
 							<Pagination />
 						</div>

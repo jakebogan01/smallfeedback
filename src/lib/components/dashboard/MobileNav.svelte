@@ -65,8 +65,8 @@
 								title="Toggle theme"
 								class="cursor-pointer !p-0"
 							>
-								<SunIcon class="hidden size-5 dark:inline" />
-								<MoonIcon class="size-5 dark:hidden" />
+								<SunIcon fill="white" class="hidden size-5 dark:inline" />
+								<MoonIcon fill="primary" class="size-5 dark:hidden" />
 							</Button>
 							<Button
 								type="button"
@@ -76,7 +76,7 @@
 								title="Show notifications"
 								class="cursor-pointer !p-0"
 							>
-								<BellIcon class="size-5" />
+								<BellIcon class="size-5 fill-primary dark:fill-white" />
 							</Button>
 						</div>
 					</div>

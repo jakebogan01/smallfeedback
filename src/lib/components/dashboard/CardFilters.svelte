@@ -3,12 +3,14 @@
 	import { isMac } from '$lib/hooks/is-mac.svelte.js';
 	import SearchIcon from '@lucide/svelte/icons/search';
 	import ThumbsUpIcon from '@lucide/svelte/icons/thumbs-up';
+	import LayoutGridIcon from '@lucide/svelte/icons/layout-grid';
 	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
 	import { cmdOrCtrl, optionOrAlt } from '$lib/hooks/is-mac.svelte';
+	import AlignJustifyIcon from '@lucide/svelte/icons/align-justify';
 	import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
 	import MessageCircleMoreIcon from '@lucide/svelte/icons/message-circle-more';
 
-	let { open = $bindable() } = $props();
+	let { toggleLayout = () => {}, open = $bindable(), changeLayout } = $props();
 </script>
 
 <div class="mt-7 flex justify-between">
@@ -23,17 +25,34 @@
 			{@render pcType()}
 		</span>
 	</button>
-	<ToggleGroup.Root type="multiple" class="divide-x">
-		<ToggleGroup.Item aria-label="Toggle by likes" class="cursor-pointer bg-background">
-			<ThumbsUpIcon class="size-4" />
-		</ToggleGroup.Item>
-		<ToggleGroup.Item aria-label="Toggle by most comments" class="cursor-pointer bg-background">
-			<MessageCircleMoreIcon class="size-4" />
-		</ToggleGroup.Item>
-		<ToggleGroup.Item aria-label="Toggle by popularity" class="cursor-pointer bg-background">
-			<ChevronDownIcon class="size-5" />
-		</ToggleGroup.Item>
-	</ToggleGroup.Root>
+
+	<div class="flex items-center space-x-2">
+		<ToggleGroup.Root type="multiple" class="divide-x">
+			<ToggleGroup.Item
+				onclick={toggleLayout}
+				aria-label="Toggle layout"
+				class="cursor-pointer bg-background"
+			>
+				<LayoutGridIcon
+					class="size-4 !transition-transform {changeLayout ? 'scale-0 -rotate-90' : 'scale-100 rotate-0'}"
+				/>
+				<AlignJustifyIcon
+					class="absolute size-4 !transition-transform {changeLayout
+						? 'scale-100 rotate-0'
+						: 'scale-0 rotate-90'}"
+				/>
+			</ToggleGroup.Item>
+			<ToggleGroup.Item aria-label="Toggle by likes" class="cursor-pointer bg-background">
+				<ThumbsUpIcon class="size-4" />
+			</ToggleGroup.Item>
+			<ToggleGroup.Item aria-label="Toggle by most comments" class="cursor-pointer bg-background">
+				<MessageCircleMoreIcon class="size-4" />
+			</ToggleGroup.Item>
+			<ToggleGroup.Item aria-label="Toggle by popularity" class="cursor-pointer bg-background">
+				<ChevronDownIcon class="size-5" />
+			</ToggleGroup.Item>
+		</ToggleGroup.Root>
+	</div>
 </div>
 
 {#snippet pcType()}
