@@ -8,7 +8,7 @@
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
 </script>
 
-<section aria-labelledby="suggestion-title" class="overflow-hidden">
+<section aria-labelledby="suggestion-title">
 	<h3 id="suggestion-title" class="sr-only">Suggestion card</h3>
 	<div class="card-foundation px-3 pt-4 pb-3 sm:px-6 sm:pt-5 sm:pb-6">
 		<div class="flex">
@@ -50,11 +50,9 @@
 			</div>
 			<div class="mt-5 px-4 text-left">
 				<dl class="space-y-8">
-					<div>
-						<dd class="text-sm">
-							{faker.word.words({ count: { min: 20, max: 100 } })}
-						</dd>
-					</div>
+					<dd>
+						{faker.word.words({ count: { min: 20, max: 100 } })}
+					</dd>
 					<div class="lg:col-start-3 lg:row-end-1">
 						<h2 class="sr-only">Post Information</h2>
 						<div class="rounded-md bg-gray-200">

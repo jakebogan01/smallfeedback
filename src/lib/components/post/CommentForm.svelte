@@ -1,26 +1,72 @@
-<div class="w-full rounded-md bg-white p-2 sm:p-6 lg:max-w-2xl dark:bg-white/10">
-	<form class="relative">
-		<label for="comment" class="sr-only">Add your comment</label>
-		<textarea
-			rows="3"
-			name="comment"
-			id="comment"
-			minlength="3"
-			maxlength="500"
-			class="block w-full resize-none rounded-md border border-slate-900/20 bg-white px-3 py-1.5 text-base text-slate-700 ring-0 outline-none placeholder:text-slate-400 focus:ring-0 focus:-outline-offset-1 sm:text-sm/6 dark:bg-zinc-900 dark:text-white dark:placeholder:text-zinc-500 focus:dark:outline-emerald-400"
-			placeholder="Communication is key..."
-			required
-		></textarea>
-		<div class="pt-6" aria-hidden="true">
-			<div class="flex h-9 justify-end">
-				<button
-					type="submit"
-					id="postBtn"
-					aria-label="Post comment"
-					class="ml-4 inline-flex justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white sm:hover:bg-blue-500 dark:bg-emerald-600 dark:sm:hover:bg-emerald-500"
-					>Post</button
-				>
-			</div>
+<script>
+	import 'quill/dist/quill.core.css';
+	import 'quill/dist/quill.snow.css';
+	import { toast } from 'svelte-sonner';
+	import { zod } from 'sveltekit-superforms/adapters';
+	import Loader2Icon from '@lucide/svelte/icons/loader-2';
+	import * as Form from '$lib/components/ui/form/index.js';
+	import { superForm, defaults } from 'sveltekit-superforms';
+	import { Textarea } from '$lib/components/ui/textarea/index.js';
+	import { createCommentSchema } from '$lib/schemas/comment.js';
+
+	const formSchema = createCommentSchema;
+	let btnDisabled = $state(false);
+
+	const form = superForm(defaults({ comment: '' }, zod(formSchema)), {
+		SPA: true,
+		validators: zod(formSchema),
+		resetForm: false,
+		onUpdate: async ({ form }) => {
+			if (form.valid) {
+				try {
+					btnDisabled = true;
+					console.log(form.data);
+					toast.success('Suggestion successfully created!');
+				} catch (error) {
+					btnDisabled = false;
+					console.dir(error?.response, { depth: null });
+					toast.error(error?.message);
+				}
+			}
+		}
+	});
+
+	const { form: formData, enhance } = form;
+</script>
+
+<div class="rounded-md bg-background/30 p-2 sm:p-6 lg:max-w-2xl">
+	<form class="space-y-4" enctype="multipart/form-data" use:enhance>
+		<Form.Field {form} name="comment" class="sm:col-span-4">
+			<Form.Control>
+				{#snippet children({ props })}
+					<Form.Label class="sr-only">Comment</Form.Label>
+					<Textarea
+						type="text"
+						{...props}
+						placeholder="Leave a comment..."
+						bind:value={$formData.comment}
+						class="h-40 bg-background"
+						inputmode="text"
+						spellcheck="true"
+						autocapitalize="on"
+						autoComplete="off"
+						minlength="1"
+						maxlength="500"
+						aria-label="Comment"
+						required
+					/>
+				{/snippet}
+			</Form.Control>
+			<Form.FieldErrors />
+		</Form.Field>
+		<div class="flex justify-end pt-2">
+			<Form.Button disabled={btnDisabled} class="cursor-pointer">
+				{#if btnDisabled}
+					<Loader2Icon class="animate-spin" />
+				{:else}
+					Submit
+				{/if}
+			</Form.Button>
 		</div>
 	</form>
 </div>
