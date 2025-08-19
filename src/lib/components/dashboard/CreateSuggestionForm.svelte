@@ -73,9 +73,9 @@
 
 <section class="mt-3" aria-labelledby="create-suggestion-form-title">
 	<h3 id="create-suggestion-form-title" class="sr-only">Create suggestion form</h3>
-	<div class="rounded-md bg-background/30 p-4">
+	<div class="rounded-md bg-background/30 px-4 py-6 sm:p-10">
 		<form class="space-y-4" enctype="multipart/form-data" use:enhance>
-			<div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+			<div class="grid grid-cols-1 gap-x-16 gap-y-4 sm:grid-cols-6">
 				<Form.Field {form} name="title" class="sm:col-span-4">
 					<Form.Control>
 						{#snippet children({ props })}
@@ -124,7 +124,7 @@
 								/>
 							{/snippet}
 						</Form.Control>
-						<Popover.Content class="w-[200px] p-0">
+						<Popover.Content class="w-full p-0">
 							<Command.Root>
 								<Command.Input
 									autofocus
@@ -140,6 +140,7 @@
 												$formData.tag = tag.value;
 												closeAndFocusTrigger(triggerId);
 											}}
+											class="cursor-pointer"
 										>
 											{tag.label}
 											<CheckIcon class={cn('ml-auto', tag.value !== $formData.tag && 'text-transparent')} />
@@ -173,13 +174,15 @@
 				</Form.Control>
 				<Form.FieldErrors />
 			</Form.Field>
-			<Form.Button disabled={btnDisabled} class="w-full cursor-pointer">
-				{#if btnDisabled}
-					<Loader2Icon class="animate-spin" />
-				{:else}
-					Submit
-				{/if}
-			</Form.Button>
+			<div class="flex justify-end pt-2">
+				<Form.Button disabled={btnDisabled} class="cursor-pointer">
+					{#if btnDisabled}
+						<Loader2Icon class="animate-spin" />
+					{:else}
+						Submit
+					{/if}
+				</Form.Button>
+			</div>
 		</form>
 	</div>
 </section>
