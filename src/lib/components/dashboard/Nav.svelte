@@ -73,9 +73,9 @@
 				<Button
 					type="button"
 					onclick={toggleCreateForm}
-					disabled={showCreateForm}
 					aria-label="Add your feedback"
-					class="cursor-pointer bg-background py-5 text-sm font-bold text-black">Add Feedback</Button
+					class="min-w-33 cursor-pointer bg-background py-5 text-sm font-bold text-black"
+					>{showCreateForm ? 'All Feedback' : 'Add Feedback'}</Button
 				>
 			</div>
 		</div>

@@ -1,6 +1,10 @@
 <script>
+	import Quill from 'quill';
 	import { tick } from 'svelte';
 	import { useId } from 'bits-ui';
+	import { onMount } from 'svelte';
+	import 'quill/dist/quill.core.css';
+	import 'quill/dist/quill.snow.css';
 	import { cn } from '$lib/utils.js';
 	import pb from '$lib/pocketbase.js';
 	import { toast } from 'svelte-sonner';
@@ -12,15 +16,17 @@
 	import { superForm, defaults } from 'sveltekit-superforms';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Command from '$lib/components/ui/command/index.js';
-	import { Textarea } from '$lib/components/ui/textarea/index.js';
-	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import { createSuggestionSchema } from '$lib/schemas/createSuggestion.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 
 	const formSchema = createSuggestionSchema;
 	let { toggleCreateForm = () => {} } = $props();
 	let btnDisabled = $state(false),
-		open = $state(false);
+		editorError = $state(false),
+		open = $state(false),
+		editor = $state(),
+		quill = $state();
 
 	const tags = [
 		{ label: 'Bug', value: 'zo8yow8g8dl3czf' },
@@ -32,8 +38,7 @@
 		defaults(
 			{
 				title: '',
-				tag: '',
-				description: ''
+				tag: ''
 			},
 			zod(formSchema)
 		),
@@ -44,9 +49,18 @@
 			onUpdate: async ({ form }) => {
 				if (form.valid) {
 					try {
-						console.log(form.data);
+						const delta = quill?.getContents();
+						const html = quill?.root.innerHTML.trim();
+						const hasText = delta && delta.ops && !(delta.ops.length === 1 && delta.ops[0].insert === '\n');
+						const hasImage = html.includes('<img');
+						if (!hasText && !hasImage) {
+							editorError = true;
+							return;
+						}
 						btnDisabled = true;
+						form.data.description = html;
 						await pb.collection('posts').create(form.data);
+						quill.setContents([]);
 						toast.success('Suggestion successfully created!');
 						toggleCreateForm();
 					} catch (error) {
@@ -69,6 +83,25 @@
 	};
 
 	const triggerId = useId();
+
+	onMount(() => {
+		const toolbarOptions = [
+			['bold', 'italic', 'underline', 'strike'],
+			['link', 'image'],
+			[{ list: 'ordered' }, { list: 'bullet' }],
+			[{ script: 'sub' }, { script: 'super' }],
+			[{ header: [1, 2, 3, 4, 5, 6, false] }],
+			[{ size: ['small', false, 'large', 'huge'] }]
+		];
+		quill = new Quill(editor, {
+			modules: {
+				toolbar: {
+					container: toolbarOptions
+				}
+			},
+			theme: 'snow'
+		});
+	});
 </script>
 
 <section class="mt-3" aria-labelledby="create-suggestion-form-title">
@@ -124,7 +157,7 @@
 								/>
 							{/snippet}
 						</Form.Control>
-						<Popover.Content class="w-full p-0">
+						<Popover.Content class="w-full max-w-60 p-0">
 							<Command.Root>
 								<Command.Input
 									autofocus
@@ -153,35 +186,38 @@
 					<Form.FieldErrors />
 				</Form.Field>
 			</div>
-			<Form.Field {form} name="description">
-				<Form.Control>
-					{#snippet children({ props })}
-						<Form.Label>Description</Form.Label>
-						<Textarea
-							{...props}
-							class="flex h-9 w-full min-w-0 rounded-md border border-input bg-background px-3 py-1 text-base shadow-xs ring-offset-background transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:ring-destructive/40"
-							bind:value={$formData.description}
-							inputmode="text"
-							spellcheck="true"
-							autocapitalize="on"
-							autoComplete="off"
-							minlength="1"
-							maxlength="500"
-							aria-label="Description"
-							required
-						/>
-					{/snippet}
-				</Form.Control>
-				<Form.FieldErrors />
-			</Form.Field>
+			<label
+				data-slot="form-label"
+				class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 data-[fs-error]:text-destructive {editorError
+					? 'text-destructive'
+					: ''}"
+				id="description"
+				for="description">Description</label
+			>
+			<div class="w-full rounded-md border {editorError ? 'border-destructive' : 'border-transparent'}">
+				<div
+					bind:this={editor}
+					class="flex min-h-40 w-full min-w-0 rounded-b-md border !border-transparent bg-background text-base shadow-xs md:text-sm dark:bg-input/30"
+				></div>
+			</div>
+			{#if editorError}
+				<div class="text-sm font-medium text-destructive" aria-live="assertive">
+					<span>Description is required</span>
+				</div>
+			{/if}
 			<div class="flex justify-end pt-2">
-				<Form.Button disabled={btnDisabled} class="cursor-pointer">
-					{#if btnDisabled}
-						<Loader2Icon class="animate-spin" />
-					{:else}
-						Submit
-					{/if}
-				</Form.Button>
+				<div class="flex items-center gap-4">
+					<Button type="button" onclick={toggleCreateForm} variant="outline" class="cursor-pointer">
+						Cancel
+					</Button>
+					<Form.Button disabled={btnDisabled} class="cursor-pointer">
+						{#if btnDisabled}
+							<Loader2Icon class="animate-spin" />
+						{:else}
+							Submit
+						{/if}
+					</Form.Button>
+				</div>
 			</div>
 		</form>
 	</div>
