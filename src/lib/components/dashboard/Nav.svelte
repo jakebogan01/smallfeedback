@@ -20,6 +20,7 @@
 				<Button
 					type="button"
 					onclick={toggleLayout}
+					disabled={showCreateForm}
 					aria-label="Toggle layouts"
 					class="hidden size-10 cursor-pointer bg-background text-primary md:flex"
 				>

@@ -4,7 +4,6 @@
 	import { cn } from '$lib/utils.js';
 	import pb from '$lib/pocketbase.js';
 	import { toast } from 'svelte-sonner';
-	import { fade } from 'svelte/transition';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Loader2Icon from '@lucide/svelte/icons/loader-2';
@@ -72,7 +71,7 @@
 	const triggerId = useId();
 </script>
 
-<section transition:fade class="mt-3" aria-labelledby="create-suggestion-form-title">
+<section class="mt-3" aria-labelledby="create-suggestion-form-title">
 	<h3 id="create-suggestion-form-title" class="sr-only">Create suggestion form</h3>
 	<div class="rounded-md bg-background/30 p-4">
 		<form class="space-y-4" enctype="multipart/form-data" use:enhance>

@@ -35,7 +35,7 @@
 				</div>
 				<div class="flex flex-col p-4">
 					<div class="flex items-center justify-between px-3">
-						<div class="flex min-w-80 items-center">
+						<div class="flex items-center">
 							<div class="shrink-0 pt-0.5">
 								<img
 									src={faker.image.avatar()}

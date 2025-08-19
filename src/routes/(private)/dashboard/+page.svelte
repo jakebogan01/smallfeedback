@@ -1,6 +1,7 @@
 <script>
 	import { toast } from 'svelte-sonner';
 	import { faker } from '@faker-js/faker';
+	import { fly } from 'svelte/transition';
 	import Head from '$lib/components/Head.svelte';
 	import Nav from '$lib/components/dashboard/Nav.svelte';
 	import Cards from '$lib/components/dashboard/Cards.svelte';
@@ -30,7 +31,7 @@
 
 	const toggleNotifications = () => {
 		if (isShowing) {
-			lastToastIds.forEach(id => toast.dismiss(id));
+			lastToastIds.forEach((id) => toast.dismiss(id));
 			lastToastIds = [];
 			isShowing = false;
 			if (resetTimeout) {
@@ -47,7 +48,7 @@
 		isShowing = true;
 		const maxDuration = BASE_DURATION + (TOAST_COUNT - 1) * STAGGER_DELAY;
 		resetTimeout = setTimeout(() => {
-			lastToastIds.forEach(id => toast.dismiss(id));
+			lastToastIds.forEach((id) => toast.dismiss(id));
 			lastToastIds = [];
 			isShowing = false;
 			resetTimeout = null;
@@ -77,11 +78,19 @@
 				<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
 					<Nav {toggleLayout} {changeLayout} {toggleCreateForm} {showCreateForm} />
 					{#if showCreateForm}
-						<CreateSuggestionForm {toggleCreateForm} />
+						<div
+							in:fly={{ y: 50, duration: 500, delay: 500 }}
+							out:fly={{ y: 50, duration: 500 }}
+							class="pt-[4.224375rem]"
+						>
+							<CreateSuggestionForm {toggleCreateForm} />
+						</div>
 					{:else}
-						<CardFilters bind:open />
-						<Cards {changeLayout} />
-						<Pagination />
+						<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }}>
+							<CardFilters bind:open />
+							<Cards {changeLayout} />
+							<Pagination />
+						</div>
 					{/if}
 				</div>
 			</div>

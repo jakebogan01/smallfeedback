@@ -1,6 +1,6 @@
 <script>
+	import { fly } from 'svelte/transition';
 	import { faker } from '@faker-js/faker';
-	import { fly, fade } from 'svelte/transition';
 	import { DASHBOARD } from '$lib/constants.js';
 	import HashTag from '@lucide/svelte/icons/hash';
 	import HearIcon from '@lucide/svelte/icons/heart';
@@ -13,7 +13,7 @@
 	let { changeLayout } = $props();
 </script>
 
-<section transition:fade class="mt-3" id="feedback-cards">
+<section class="mt-3" id="feedback-cards">
 	<ul
 		role="list"
 		class="grid gap-3 rounded-md bg-background/30 sm:p-4 {changeLayout
@@ -23,10 +23,7 @@
 		{#each { length: faker.number.int({ min: 1, max: 10 }) }, i (i)}
 			{@const link = `${DASHBOARD}/post/title`}
 			{#if changeLayout}
-				<li
-					in:fly|global={{ y: 50, delay: i * 100, duration: 500 }}
-					class="card-foundation transition duration-500"
-				>
+				<li in:fly|global={{ y: 50, delay: i * 100, duration: 500 }} class="card-foundation">
 					<a href={link} class="flex flex-col" aria-label="View Feedback title">
 						<div class="flex items-center justify-between px-4 pt-4 sm:px-6 sm:pt-6">
 							{@render likeBtn()}
@@ -46,10 +43,7 @@
 					</a>
 				</li>
 			{:else}
-				<li
-					in:fly|global={{ y: 50, delay: i * 200, duration: 800 }}
-					class="card-foundation transition duration-800"
-				>
+				<li in:fly|global={{ y: 50, delay: i * 200, duration: 800 }} class="card-foundation">
 					<a href={link} class="flex flex-col md:flex-row" aria-label="View Feedback title">
 						<div class="mr-5 px-4 pt-4 sm:pt-6 sm:pb-6 sm:pl-8">
 							{@render likeBtn()}
