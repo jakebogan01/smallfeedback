@@ -1,6 +1,6 @@
 <script>
 	import Head from '$lib/components/Head.svelte';
-	import Card from '$lib/components/post/Card.svelte';
+	import Post from '$lib/components/post/Post.svelte';
 	import Comments from '$lib/components/post/Comments.svelte';
 	import CommentForm from '$lib/components/post/CommentForm.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
@@ -17,7 +17,7 @@
 		<h1 class="sr-only">Suggestion title</h1>
 		<div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-4 lg:gap-8">
 			<aside class="top-8 grid shrink-0 grid-cols-1 gap-12 lg:sticky lg:col-span-2 lg:mt-8 lg:gap-4">
-				<Card />
+				<Post />
 				<CommentForm />
 			</aside>
 			<div class="grid grid-cols-1 lg:col-span-2 lg:mt-8">
