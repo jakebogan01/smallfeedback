@@ -116,5 +116,7 @@
 {/snippet}
 
 {#snippet copy(mt)}
-	<p class="{mt} mb-4 line-clamp-3">{faker.word.words({ count: { min: 20, max: 100 } })}</p>
+	<p class="{mt} mb-4 line-clamp-3 text-sm leading-relaxed">
+		{faker.word.words({ count: { min: 20, max: 100 } })}
+	</p>
 {/snippet}

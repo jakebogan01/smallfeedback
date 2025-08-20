@@ -50,7 +50,7 @@
 			</div>
 			<div class="mt-5 px-4 text-left">
 				<dl class="space-y-8">
-					<dd>
+					<dd class="text-sm leading-relaxed">
 						{faker.word.words({ count: { min: 20, max: 100 } })}
 					</dd>
 					<div class="lg:col-start-3 lg:row-end-1">
