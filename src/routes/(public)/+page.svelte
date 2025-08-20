@@ -1,100 +1,99 @@
 <script>
 	import pb from '$lib/pocketbase.js';
 	import { SIGNIN } from '$lib/constants.js';
+	import { onMount } from 'svelte';
 	import { logout } from '$lib/utils/logout.js';
 	import Head from '$lib/components/Head.svelte';
 	import AlignJustifyIcon from '@lucide/svelte/icons/align-justify';
-	import { onMount } from 'svelte';
 
 	let openMenu = $state(false);
+	let canvas;
+	let target;
+	let ctx;
+	let mouse = { x: null, y: null };
+	let frame;
+
+	const updateCanvasSize = () => {
+		if (!canvas) return;
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+	};
+
+	const drawArrow = () => {
+		if (!ctx || !mouse.x || !mouse.y || !target) return;
+
+		const { x: x0, y: y0 } = mouse;
+		const rect = target.getBoundingClientRect();
+		const cx = rect.left + rect.width / 2;
+		const cy = rect.top + rect.height / 2;
+
+		const a = Math.atan2(cy - y0, cx - x0);
+		const x1 = cx - Math.cos(a) * (rect.width / 2 + 12);
+		const y1 = cy - Math.sin(a) * (rect.height / 2 + 12);
+
+		const midX = (x0 + x1) / 2;
+		const midY = (y0 + y1) / 2;
+		const offset = Math.min(200, Math.hypot(x1 - x0, y1 - y0) * 0.5);
+		const t = Math.max(-1, Math.min(1, (y0 - y1) / 200));
+		const controlX = midX;
+		const controlY = midY + offset * t;
+
+		const r = Math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2);
+		const opacity = Math.min(0.75, (r - Math.max(rect.width, rect.height) / 2) / 100);
+
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+		ctx.strokeStyle = `rgba(0,0,0,${opacity})`;
+		ctx.lineWidth = 1;
+
+		// Curve
+		ctx.save();
+		ctx.beginPath();
+		ctx.moveTo(x0, y0);
+		ctx.quadraticCurveTo(controlX, controlY, x1, y1);
+		ctx.setLineDash([10, 4]);
+		ctx.stroke();
+		ctx.restore();
+
+		// Arrowhead
+		const angle = Math.atan2(y1 - controlY, x1 - controlX);
+		const headLength = 10;
+		ctx.beginPath();
+		ctx.moveTo(x1, y1);
+		ctx.lineTo(
+			x1 - headLength * Math.cos(angle - Math.PI / 6),
+			y1 - headLength * Math.sin(angle - Math.PI / 6)
+		);
+		ctx.moveTo(x1, y1);
+		ctx.lineTo(
+			x1 - headLength * Math.cos(angle + Math.PI / 6),
+			y1 - headLength * Math.sin(angle + Math.PI / 6)
+		);
+		ctx.stroke();
+	};
+
+	const animate = () => {
+		drawArrow();
+		frame = requestAnimationFrame(animate);
+	};
 
 	onMount(() => {
-		const canvas = document.getElementById('overlay');
-		const ctx = canvas.getContext('2d');
-		const target = document.getElementById('target');
-
-		const updateCanvasSize = () => {
-			canvas.width = window.innerWidth;
-			canvas.height = window.innerHeight;
-		};
-
-		// Handle window resize
-		window.addEventListener('resize', updateCanvasSize);
+		ctx = canvas.getContext('2d');
 		updateCanvasSize();
 
-		// Mouse position
-		let mouse = { x: null, y: null };
+		window.addEventListener('resize', updateCanvasSize);
 		window.addEventListener('mousemove', (e) => {
 			mouse.x = e.clientX;
 			mouse.y = e.clientY;
 		});
 
-		// Draw arrow function
-		const drawArrow = () => {
-			const x0 = mouse.x;
-			const y0 = mouse.y;
-
-			if (!x0 || !y0) return;
-
-			// Get target center
-			const rect = target.getBoundingClientRect();
-			const cx = rect.left + rect.width / 2;
-			const cy = rect.top + rect.height / 2;
-
-			// Add target size
-			const a = Math.atan2(cy - y0, cx - x0);
-			const x1 = cx - Math.cos(a) * (rect.width / 2 + 12);
-			const y1 = cy - Math.sin(a) * (rect.height / 2 + 12);
-
-			const midX = (x0 + x1) / 2;
-			const midY = (y0 + y1) / 2;
-			const offset = Math.min(200, Math.hypot(x1 - x0, y1 - y0) * 0.5);
-			const t = Math.max(-1, Math.min(1, (y0 - y1) / 200));
-			const controlX = midX;
-			const controlY = midY + offset * t;
-
-			const r = Math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2);
-			const opacity = Math.min(0.75, (r - Math.max(rect.width, rect.height) / 2) / 100);
-
-			ctx.strokeStyle = `rgba(0,0,0,${opacity})`;
-			ctx.lineWidth = 1;
-
-			// Draw curve
-			ctx.save();
-			ctx.beginPath();
-			ctx.moveTo(x0, y0);
-			ctx.quadraticCurveTo(controlX, controlY, x1, y1);
-			ctx.setLineDash([10, 4]);
-			ctx.stroke();
-			ctx.restore();
-
-			// Draw arrowhead
-			const angle = Math.atan2(y1 - controlY, x1 - controlX);
-			const headLength = 10;
-			ctx.beginPath();
-			ctx.moveTo(x1, y1);
-			ctx.lineTo(
-				x1 - headLength * Math.cos(angle - Math.PI / 6),
-				y1 - headLength * Math.sin(angle - Math.PI / 6)
-			);
-			ctx.moveTo(x1, y1);
-			ctx.lineTo(
-				x1 - headLength * Math.cos(angle + Math.PI / 6),
-				y1 - headLength * Math.sin(angle + Math.PI / 6)
-			);
-			ctx.stroke();
-		};
-
-		// Animation loop
-		const animate = () => {
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-			drawArrow();
-
-			requestAnimationFrame(animate);
-		};
-
 		animate();
+
+		// Cleanup
+		return () => {
+			window.removeEventListener('resize', updateCanvasSize);
+			cancelAnimationFrame(frame);
+		};
 	});
 </script>
 
@@ -182,8 +181,8 @@
 							<a
 								href={SIGNIN}
 								aria-label="Sign-in"
-								id="target"
-								class="w-30 rounded-full bg-blue-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+								bind:this={target}
+								class="w-30 rounded-full bg-indigo-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
 								>Get Started</a
 							>
 						</div>
@@ -229,4 +228,4 @@
 	</footer>
 </main>
 
-<canvas id="overlay" class="pointer-events-none fixed inset-0"></canvas>
+<canvas bind:this={canvas} id="overlay" class="pointer-events-none fixed top-0 left-0 h-full w-full"></canvas>
