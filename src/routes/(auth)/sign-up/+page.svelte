@@ -4,17 +4,19 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import Head from '$lib/components/Head.svelte';
-	import { DASHBOARD, SIGNIN } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
+	import { emailSchema } from '$lib/schemas/email.js';
+	import { DASHBOARD, SIGNIN } from '$lib/constants.js';
 	import * as Password from '$lib/components/ui/password';
 	import * as Form from '$lib/components/ui/form/index.js';
+	import { passwordSchema } from '$lib/schemas/password.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
-	import { baseAuthSchema } from '$lib/schemas/auth.js';
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 
 	let btnDisabled = $state(false);
 
-	const formSchema = baseAuthSchema
+	const formSchema = emailSchema
+		.merge(passwordSchema)
 		.extend({
 			passwordConfirm: z.string()
 		})

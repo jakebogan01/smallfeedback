@@ -8,7 +8,6 @@
 	import { cn } from '$lib/utils.js';
 	import pb from '$lib/pocketbase.js';
 	import { toast } from 'svelte-sonner';
-	import ImageResize from 'quill-image-resize-vue';
 	import CheckIcon from '@lucide/svelte/icons/check';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Loader2Icon from '@lucide/svelte/icons/loader-2';
@@ -20,8 +19,6 @@
 	import * as Command from '$lib/components/ui/command/index.js';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
-
-	Quill.register('modules/imageResize', ImageResize);
 
 	const formSchema = createSuggestionSchema;
 	let { toggleCreateForm = () => {} } = $props();

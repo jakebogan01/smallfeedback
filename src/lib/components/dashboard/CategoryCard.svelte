@@ -1,8 +1,13 @@
 <script>
 	import { faker } from '@faker-js/faker';
+	import { fly } from 'svelte/transition';
 </script>
 
-<section aria-labelledby="category-title">
+<section
+	in:fly={{ y: 50, duration: 500, delay: 500 }}
+	out:fly={{ y: 50, duration: 500 }}
+	aria-labelledby="category-title"
+>
 	<div class="card-foundation group p-6">
 		<h3 id="category-title" class="font-bold">Categories</h3>
 		<ul role="list" class="mt-2 space-y-1">
