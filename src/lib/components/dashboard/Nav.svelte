@@ -44,7 +44,7 @@
 					onclick={toggleCreateForm}
 					aria-label="Add your feedback"
 					class="min-w-33 cursor-pointer bg-background py-5 text-sm font-bold text-black"
-					>{showCreateForm ? 'All Feedback' : 'Add Feedback'}</Button
+					>{showCreateForm ? 'Dashboard' : 'Add Feedback'}</Button
 				>
 			</div>
 		</div>

@@ -1,5 +1,14 @@
 <script>
 	import { Button } from '$lib/components/ui/button/index.js';
+
+	let { updateModalData = () => {} } = $props();
+
+	const handleModal = () => {
+		updateModalData({
+			target: 'your account',
+			id: 1
+		});
+	};
 </script>
 
 <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 md:grid-cols-3">
@@ -11,6 +20,8 @@
 		</p>
 	</div>
 	<form class="flex items-start md:col-span-2">
-		<Button type="button" class="cursor-pointer bg-destructive">Yes, delete my account</Button>
+		<Button onclick={handleModal} type="button" class="cursor-pointer bg-destructive"
+			>Yes, delete my account</Button
+		>
 	</form>
 </div>

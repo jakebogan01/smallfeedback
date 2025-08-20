@@ -12,10 +12,12 @@
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
 	import AccountSettingsForm from '$lib/components/dashboard/AccountSettingsForm.svelte';
 	import CreateSuggestionForm from '$lib/components/dashboard/CreateSuggestionForm.svelte';
+	import Modal from '$lib/components/Modal.svelte';
 
 	let showSettingsPage = $state(false),
 		showCreateForm = $state(false),
 		changeLayout = $state(false),
+		modalData = $state({}),
 		open = $state(false);
 
 	const toggleLayout = () => (changeLayout = !changeLayout);
@@ -27,6 +29,7 @@
 		showSettingsPage = !showSettingsPage;
 		showCreateForm = false;
 	};
+	const updateModalData = (obj) => (modalData = obj);
 </script>
 
 <Head
@@ -40,30 +43,22 @@
 		<h1 class="sr-only">Feedback Dashboard</h1>
 		<div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-4 lg:gap-6">
 			<aside class="sticky top-8 order-2 hidden shrink-0 grid-cols-1 gap-4 lg:order-none lg:mt-8 lg:grid">
+				<Controls {toggleAccountSettings} {showSettingsPage} />
 				<GroupGraphicCard />
 				{#if !showSettingsPage}
 					<TagFilterCard />
 					<CategoryCard />
 				{/if}
-				<Controls {toggleAccountSettings} />
 			</aside>
 			<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
 				<Nav {toggleCreateForm} {showCreateForm} {showSettingsPage} />
 				{#if showCreateForm}
-					<div
-						in:fly={{ y: 50, duration: 500, delay: 500 }}
-						out:fly={{ y: 50, duration: 500 }}
-						class="pt-[4.224375rem]"
-					>
+					<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }} class="pt-7">
 						<CreateSuggestionForm {toggleCreateForm} />
 					</div>
 				{:else if showSettingsPage}
-					<div
-						in:fly={{ y: 50, duration: 500, delay: 500 }}
-						out:fly={{ y: 50, duration: 500 }}
-						class="pt-[4.224375rem]"
-					>
-						<AccountSettingsForm />
+					<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }} class="pt-7">
+						<AccountSettingsForm {toggleAccountSettings} {updateModalData} />
 					</div>
 				{:else}
 					<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }}>
@@ -78,3 +73,7 @@
 </main>
 
 <Search bind:open />
+
+{#if Object.keys(modalData).length}
+	<Modal {...modalData} {updateModalData} />
+{/if}
