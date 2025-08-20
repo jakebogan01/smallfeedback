@@ -1,7 +1,6 @@
 <script>
 	import { faker } from '@faker-js/faker';
 	import { toggleMode } from 'mode-watcher';
-	import { SETTINGS } from '$lib/constants.js';
 	import { logout } from '$lib/utils/logout.js';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import MoonIcon from '@lucide/svelte/icons/moon';
@@ -11,8 +10,11 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { toggleNotifications } from '$lib/utils/notifications.js';
 
-	const handleNotifications = () =>
+	let { toggleAccountSettings = () => {} } = $props();
+
+	const handleNotifications = () => {
 		toggleNotifications(faker.person.fullName(), 'Has commented on your pose!');
+	};
 </script>
 
 <section aria-labelledby="controls">
@@ -54,8 +56,9 @@
 			<BellIcon class="size-5" />
 		</Button>
 		<Button
-			href={SETTINGS}
-			aria-label="Visit account settings"
+			type="button"
+			onclick={toggleAccountSettings}
+			aria-label="View account settings"
 			title="Account settings"
 			class="cursor-pointer py-5.5"
 		>

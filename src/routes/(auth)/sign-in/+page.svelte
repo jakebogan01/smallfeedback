@@ -3,13 +3,14 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import Head from '$lib/components/Head.svelte';
-	import { DASHBOARD, SIGNUP } from '$lib/constants.js';
 	import { zod } from 'sveltekit-superforms/adapters';
+	import { emailSchema } from '$lib/schemas/email.js';
+	import { DASHBOARD, SIGNUP } from '$lib/constants.js';
+	import { passwordSchema } from '$lib/schemas/password.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
-	import { baseAuthSchema } from '$lib/schemas/auth.js';
 	import AuthForm from '$lib/components/auth/AuthForm.svelte';
 
-	const formSchema = baseAuthSchema;
+	const formSchema = emailSchema.merge(passwordSchema);
 	let btnDisabled = $state(false);
 
 	const form = superForm(

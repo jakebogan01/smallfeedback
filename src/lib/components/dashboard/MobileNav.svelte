@@ -9,7 +9,7 @@
 	import MoonIcon from '@lucide/svelte/icons/moon';
 	import BellIcon from '@lucide/svelte/icons/bell';
 	import LogOutIcon from '@lucide/svelte/icons/log-out';
-	import { DASHBOARD, SETTINGS } from '$lib/constants.js';
+	import { DASHBOARD } from '$lib/constants.js';
 	import SettingsIcon from '@lucide/svelte/icons/settings';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { toggleNotifications } from '$lib/utils/notifications.js';
@@ -86,7 +86,7 @@
 					</div>
 					<hr class="mx-2 mt-2" />
 					<Button
-						href={SETTINGS}
+						type="button"
 						variant="ghost"
 						aria-label="Visit account settings"
 						title="Account settings"

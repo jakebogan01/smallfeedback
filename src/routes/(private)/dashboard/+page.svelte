@@ -10,14 +10,23 @@
 	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
 	import GroupGraphicCard from '$lib/components/dashboard/GroupGraphicCard.svelte';
+	import AccountSettingsForm from '$lib/components/dashboard/AccountSettingsForm.svelte';
 	import CreateSuggestionForm from '$lib/components/dashboard/CreateSuggestionForm.svelte';
 
-	let showCreateForm = $state(false),
+	let showSettingsPage = $state(false),
+		showCreateForm = $state(false),
 		changeLayout = $state(false),
 		open = $state(false);
 
 	const toggleLayout = () => (changeLayout = !changeLayout);
-	const toggleCreateForm = () => (showCreateForm = !showCreateForm);
+	const toggleCreateForm = () => {
+		showCreateForm = !showCreateForm;
+		showSettingsPage = false;
+	};
+	const toggleAccountSettings = () => {
+		showSettingsPage = !showSettingsPage;
+		showCreateForm = false;
+	};
 </script>
 
 <Head
@@ -32,12 +41,14 @@
 		<div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-4 lg:gap-6">
 			<aside class="sticky top-8 order-2 hidden shrink-0 grid-cols-1 gap-4 lg:order-none lg:mt-8 lg:grid">
 				<GroupGraphicCard />
-				<TagFilterCard />
-				<CategoryCard />
-				<Controls />
+				{#if !showSettingsPage}
+					<TagFilterCard />
+					<CategoryCard />
+				{/if}
+				<Controls {toggleAccountSettings} />
 			</aside>
 			<div class="order-1 grid grid-cols-1 lg:order-none lg:col-span-3 lg:mt-8">
-				<Nav {toggleCreateForm} {showCreateForm} />
+				<Nav {toggleCreateForm} {showCreateForm} {showSettingsPage} />
 				{#if showCreateForm}
 					<div
 						in:fly={{ y: 50, duration: 500, delay: 500 }}
@@ -45,6 +56,14 @@
 						class="pt-[4.224375rem]"
 					>
 						<CreateSuggestionForm {toggleCreateForm} />
+					</div>
+				{:else if showSettingsPage}
+					<div
+						in:fly={{ y: 50, duration: 500, delay: 500 }}
+						out:fly={{ y: 50, duration: 500 }}
+						class="pt-[4.224375rem]"
+					>
+						<AccountSettingsForm />
 					</div>
 				{:else}
 					<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }}>
