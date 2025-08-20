@@ -15,10 +15,10 @@
 	import * as Form from '$lib/components/ui/form/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { superForm, defaults } from 'sveltekit-superforms';
+	import { createSuggestionSchema } from '$lib/schemas/post.js';
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Command from '$lib/components/ui/command/index.js';
 	import ChevronsUpDownIcon from '@lucide/svelte/icons/chevrons-up-down';
-	import { createSuggestionSchema } from '$lib/schemas/createSuggestion.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 
 	Quill.register('modules/imageResize', ImageResize);

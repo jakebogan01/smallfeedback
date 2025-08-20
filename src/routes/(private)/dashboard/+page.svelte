@@ -2,10 +2,10 @@
 	import { fly } from 'svelte/transition';
 	import Head from '$lib/components/Head.svelte';
 	import Nav from '$lib/components/dashboard/Nav.svelte';
-	import Cards from '$lib/components/dashboard/Cards.svelte';
+	import Posts from '$lib/components/dashboard/Posts.svelte';
 	import Search from '$lib/components/dashboard/Search.svelte';
 	import Controls from '$lib/components/dashboard/Controls.svelte';
-	import Pagination from '$lib/components/dashboard/Pagination.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
 	import CardFilters from '$lib/components/dashboard/CardFilters.svelte';
 	import CategoryCard from '$lib/components/dashboard/CategoryCard.svelte';
 	import TagFilterCard from '$lib/components/dashboard/TagFilterCard.svelte';
@@ -49,7 +49,7 @@
 				{:else}
 					<div in:fly={{ y: 50, duration: 500, delay: 500 }} out:fly={{ y: 50, duration: 500 }}>
 						<CardFilters {toggleLayout} {changeLayout} bind:open />
-						<Cards {changeLayout} />
+						<Posts {changeLayout} />
 						<Pagination />
 					</div>
 				{/if}
