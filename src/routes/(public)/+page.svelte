@@ -54,7 +54,7 @@
 			const controlY = midY + offset * t;
 
 			const r = Math.sqrt((x1 - x0) ** 2 + (y1 - y0) ** 2);
-			const opacity = Math.min(0.75, (r - Math.max(rect.width, rect.height) / 2) / 750);
+			const opacity = Math.min(0.75, (r - Math.max(rect.width, rect.height) / 2) / 100);
 
 			ctx.strokeStyle = `rgba(0,0,0,${opacity})`;
 			ctx.lineWidth = 1;
@@ -111,7 +111,7 @@
 		<div class="flex items-center justify-between">
 			<div class="flex items-center justify-between">
 				<div class="flex items-center px-5 py-3 lg:p-0">
-					<img src="https://image.ibb.co/kcVou6/path3000.png" alt="Logo" width="24" height="28" />
+					<img src="/logo.png" alt="Logo" width="24" height="28" />
 					<h1 class="ml-2.5 text-lg leading-[1.125rem]">SmallFeedBack</h1>
 				</div>
 				<button
@@ -174,9 +174,9 @@
 			<div class="-mx-4">
 				<div class="relative min-h-px px-4">
 					<div class="text-center">
-						<h1 class="text-2xl font-bold sm:text-3xl xl:text-5xl">Fast paced way to grow your business</h1>
+						<h1 class="text-2xl font-bold sm:text-3xl xl:text-5xl">Free Anonymous Feedback</h1>
 						<h2 class="mt-0 mb-6 text-lg font-medium text-[#8198ae] sm:mt-4 sm:mb-10 sm:text-xl">
-							Manage analytics like a boss
+							Manage feedback like a boss
 						</h2>
 						<div>
 							<a
@@ -202,20 +202,20 @@
 
 	<footer class="relative flex-1 bg-indigo-500/90 pt-15 pb-10 sm:py-22.5">
 		<img
-			src="https://image.ibb.co/fWyVtb/path3762.png"
+			src="/blocks.png"
 			alt="Blocks"
-			width=""
-			height=""
+			width="1964"
+			height="837"
 			class="absolute bottom-0 left-[20%] z-0 w-[65%] max-w-5xl align-middle xl:left-[27%]"
 		/>
 		<div class="mx-auto max-w-4xl px-4">
 			<div class="-mx-4">
 				<div class="relative min-h-px px-4 text-center">
 					<h3 class="mb-2.5 text-lg leading-tight font-medium text-white sm:mt-5 sm:text-[1.75rem]">
-						Oh! Your have digged our website in search for the new job?
+						Oh! You thought there was more down here?
 					</h3>
 					<h4 class="mb-7.5 text-sm leading-tight font-medium text-[#c7cbff] sm:text-[1.375rem]">
-						We will pleased to have you onboard! Check open positions.
+						Nope, just this cool button you should click.
 					</h4>
 					<a
 						href={SIGNIN}
