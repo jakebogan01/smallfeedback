@@ -3,7 +3,7 @@
 	import { Toaster } from 'svelte-sonner';
 	import { ModeWatcher } from 'mode-watcher';
 	import { BProgress } from '@bprogress/core';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/logo.png';
 	import { beforeNavigate, afterNavigate } from '$app/navigation';
 
 	BProgress.configure({

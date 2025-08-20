@@ -104,11 +104,11 @@
 />
 
 <header
-	class="fixed top-0 left-0 z-4 w-full bg-white shadow lg:static lg:bg-transparent lg:px-6 lg:py-7.5 lg:shadow-none"
+	class="fixed top-0 left-0 z-4 w-full bg-white shadow-md shadow-black/20 lg:static lg:bg-transparent lg:px-6 lg:py-7.5 lg:shadow-none"
 >
 	<div class="mx-auto max-w-7xl text-[#1f4568]">
 		<div class="flex items-center justify-between">
-			<div class="flex items-center justify-between">
+			<div class="flex w-full items-center justify-between">
 				<div class="flex items-center px-5 py-3 lg:p-0">
 					<img src="/logo.png" alt="Logo" width="24" height="28" />
 					<h1 class="ml-2.5 text-lg leading-[1.125rem]">SmallFeedBack</h1>
@@ -122,13 +122,13 @@
 					<AlignJustifyIcon class="size-5.5" />
 				</button>
 			</div>
-			<nav id="navbar" class="">
-				<ul class="">
+			<nav id="navbar" class="hidden lg:block">
+				<ul>
 					<li>
 						<a
 							href={SIGNIN}
 							aria-label="Sign-in"
-							class="w-30 rounded-full border border-[#c9d9e9] bg-transparent px-6 py-3 text-xs font-normal text-slate-500 select-none sm:text-sm"
+							class="w-30 rounded-full border border-[#c9d9e9] bg-transparent px-6 py-3 text-xs font-normal whitespace-nowrap text-slate-500 select-none sm:text-sm"
 							>Sign in</a
 						>
 					</li>
@@ -187,10 +187,10 @@
 							>
 						</div>
 						<img
-							src="https://image.ibb.co/c7grYb/image3015.png"
+							src="/test2.png"
 							alt="Dashboard"
-							width=""
-							height=""
+							width="907"
+							height="503"
 							class="mt-8 inline-block w-full align-middle sm:mt-15 md:w-full"
 						/>
 					</div>
@@ -205,7 +205,7 @@
 			alt="Blocks"
 			width="1964"
 			height="837"
-			class="absolute bottom-0 left-[20%] z-0 w-[65%] max-w-5xl align-middle xl:left-[27%]"
+			class="absolute bottom-0 left-[52%] z-0 w-[65%] max-w-5xl -translate-x-1/2 align-middle"
 		/>
 		<div class="mx-auto max-w-4xl px-4">
 			<div class="-mx-4">
@@ -214,7 +214,7 @@
 						Oh! You thought there was more down here?
 					</h3>
 					<h4 class="mb-7.5 text-sm leading-tight font-medium text-[#c7cbff] sm:text-[1.375rem]">
-						Nope, just this cool button you should click.
+						Nope, just this cool button that you should click on.
 					</h4>
 					<a
 						href={SIGNIN}
