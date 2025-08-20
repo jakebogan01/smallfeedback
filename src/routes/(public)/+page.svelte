@@ -167,7 +167,7 @@
 <main class="flex h-full flex-col">
 	<section
 		id="hero"
-		class="relative mx-auto max-w-3xl py-22.5 text-[#1f4568] xl:max-w-6xl xl:pt-22.5 xl:pb-75"
+		class="relative mx-auto max-w-3xl py-22.5 text-[#1f4568] lg:min-h-screen xl:max-w-6xl xl:pt-22.5 xl:pb-75"
 	>
 		<div class="mx-4">
 			<div class="-mx-4">
@@ -199,7 +199,7 @@
 		</div>
 	</section>
 
-	<footer class="relative flex-1 bg-indigo-500/90 pt-15 pb-10 sm:py-22.5">
+	<footer class="relative mt-8 flex-1 bg-indigo-500/90 pt-15 pb-10 sm:py-22.5">
 		<img
 			src="/blocks.png"
 			alt="Blocks"
