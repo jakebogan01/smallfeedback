@@ -45,7 +45,7 @@
 			<aside class="sticky top-8 order-2 hidden shrink-0 grid-cols-1 gap-4 lg:order-none lg:mt-8 lg:grid">
 				<Controls {toggleAccountSettings} {showSettingsPage} />
 				<GroupGraphicCard />
-				{#if !showSettingsPage}
+				{#if !showSettingsPage && !showCreateForm}
 					<TagFilterCard />
 					<CategoryCard />
 				{/if}
