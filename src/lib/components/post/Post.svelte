@@ -6,6 +6,7 @@
 	import CalendarIcon from '@lucide/svelte/icons/calendar';
 	import LikeButton from '$lib/components/LikeButton.svelte';
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
 </script>
 
 <section aria-labelledby="suggestion-title">
@@ -23,11 +24,12 @@
 					class="flex items-center justify-end rounded-md bg-primary py-6 pr-5 text-4xl font-bold text-white"
 				>
 					<span>{faker.person.firstName()}</span>
+					<!--                    <Skeleton class="h-10 w-1/2 rounded bg-white/30" />-->
 				</div>
 				<div class="-mt-12 flow-root px-4">
 					<div class="-m-1 flex">
 						<div
-							class="inline-flex overflow-hidden rounded-md border-4 border-white shadow-md dark:shadow-none"
+							class="inline-flex overflow-hidden rounded-md border-4 border-white bg-background shadow-md dark:shadow-none"
 						>
 							<img
 								class="size-24 shrink-0 bg-white"
@@ -36,6 +38,7 @@
 								src={faker.image.avatar()}
 								alt={faker.person.firstName()}
 							/>
+							<!--                            <Skeleton class="size-24 rounded bg-black/30" />-->
 						</div>
 					</div>
 					<div class="mt-6 flex items-center">
@@ -43,8 +46,10 @@
 							<h2 id="view-task-title" class="text-xl font-bold capitalize">
 								{faker.book.title()}
 							</h2>
+							<!--                            <Skeleton class="h-7 w-1/2 rounded bg-black/30" />-->
 						</div>
 						<LikeButton />
+						<!--                        <Skeleton class="h-9 w-20 rounded bg-black/30" />-->
 					</div>
 				</div>
 			</div>
@@ -52,6 +57,9 @@
 				<dl class="space-y-8">
 					<dd class="text-sm leading-relaxed">
 						{faker.word.words({ count: { min: 20, max: 100 } })}
+						<!--                        <Skeleton class="mt-4 h-6 w-full rounded bg-black/30" />-->
+						<!--                        <Skeleton class="mt-2 h-6 w-full rounded bg-black/30" />-->
+						<!--                        <Skeleton class="mt-2 h-6 w-full rounded bg-black/30" />-->
 					</dd>
 					<div class="lg:col-start-3 lg:row-end-1">
 						<h2 class="sr-only">Post Information</h2>
@@ -64,6 +72,7 @@
 									</dt>
 									<dd class="text-sm/6">
 										<span>Bug</span>
+										<!--                                        <Skeleton class="h-5 w-10 rounded bg-black/30" />-->
 									</dd>
 								</div>
 								<div class="flex w-full flex-col items-center gap-x-2">
@@ -73,6 +82,7 @@
 									</dt>
 									<dd class="text-sm/6">
 										<span>Requested</span>
+										<!--                                        <Skeleton class="h-5 w-10 rounded bg-black/30" />-->
 									</dd>
 								</div>
 								<div class="flex w-full flex-col items-center gap-x-2">
@@ -82,6 +92,7 @@
 									</dt>
 									<dd class="text-sm/6">
 										<time datetime="2023-01-31">Jan 23</time>
+										<!--                                        <Skeleton class="h-5 w-10 rounded bg-black/30" />-->
 									</dd>
 								</div>
 							</dl>
