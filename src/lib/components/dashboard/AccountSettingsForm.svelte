@@ -4,6 +4,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left';
 	import UpdateEmail from '$lib/components/settings/UpdateEmail.svelte';
+	import UpdateAvatar from '$lib/components/settings/UpdateAvatar.svelte';
 	import DeleteAccount from '$lib/components/settings/DeleteAccount.svelte';
 	import UpdatePassword from '$lib/components/settings/UpdatePassword.svelte';
 
@@ -25,6 +26,7 @@
 				</Button>
 			</div>
 			<div class="divide-y divide-input px-4 pb-4">
+				<UpdateAvatar />
 				<UpdateEmail />
 				<UpdatePassword />
 				<DeleteAccount {updateModalData} />

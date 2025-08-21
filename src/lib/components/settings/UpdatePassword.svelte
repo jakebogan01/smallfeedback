@@ -54,7 +54,7 @@
 <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 md:grid-cols-3">
 	<div>
 		<h2 class="text-base/7 font-semibold">Change password</h2>
-		<p class="mt-1 text-sm/6 text-gray-400">Update your password associated with your account.</p>
+		<p class="mt-1 text-sm/6">Update your password associated with your account.</p>
 	</div>
 	<form class="md:col-span-2" use:enhance>
 		<Form.Field {form} name="password">

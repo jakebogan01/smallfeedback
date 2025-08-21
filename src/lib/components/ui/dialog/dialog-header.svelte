@@ -1,7 +1,17 @@
-<script>
-	import { cn } from '$lib/utils.js';
+<!--
+	Installed from @ieedan/shadcn-svelte-extras
+-->
 
-	let { ref = $bindable(null), class: className, children, ...restProps } = $props();
+<script lang="ts">
+	import type { HTMLAttributes } from 'svelte/elements';
+	import { cn, type WithElementRef } from '$lib/utils/utils.js';
+
+	let {
+		ref = $bindable(null),
+		class: className,
+		children,
+		...restProps
+	}: WithElementRef<HTMLAttributes<HTMLDivElement>> = $props();
 </script>
 
 <div
