@@ -2,6 +2,7 @@
 	import 'quill/dist/quill.core.css';
 	import 'quill/dist/quill.snow.css';
 	import { toast } from 'svelte-sonner';
+	import { faker } from '@faker-js/faker';
 	import { zod } from 'sveltekit-superforms/adapters';
 	import Loader2Icon from '@lucide/svelte/icons/loader-2';
 	import * as Form from '$lib/components/ui/form/index.js';
@@ -13,6 +14,7 @@
 	let btnDisabled = $state(false);
 
 	const form = superForm(defaults({ comment: '' }, zod(formSchema)), {
+		id: faker.number.int(),
 		SPA: true,
 		validators: zod(formSchema),
 		resetForm: false,
@@ -43,9 +45,9 @@
 					<Textarea
 						type="text"
 						{...props}
-						placeholder="Leave a comment..."
+						placeholder="Add a comment..."
 						bind:value={$formData.comment}
-						class="h-40 bg-background"
+						class="h-30 bg-background"
 						inputmode="text"
 						spellcheck="true"
 						autocapitalize="on"

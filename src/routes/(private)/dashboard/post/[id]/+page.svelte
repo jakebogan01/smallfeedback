@@ -1,9 +1,14 @@
 <script>
 	import Head from '$lib/components/Head.svelte';
+	import Modal from '$lib/components/Modal.svelte';
 	import Post from '$lib/components/post/Post.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
 	import Comments from '$lib/components/post/Comments.svelte';
 	import CommentForm from '$lib/components/post/CommentForm.svelte';
-	import Pagination from '$lib/components/Pagination.svelte';
+
+	let modalData = $state({});
+
+	const updateModalData = (obj) => (modalData = obj);
 </script>
 
 <Head
@@ -21,9 +26,13 @@
 				<CommentForm />
 			</aside>
 			<div class="grid grid-cols-1 lg:col-span-2 lg:mt-8">
-				<Comments />
+				<Comments {updateModalData} />
 				<Pagination />
 			</div>
 		</div>
 	</div>
 </main>
+
+{#if Object.keys(modalData).length}
+	<Modal {...modalData} {updateModalData} />
+{/if}

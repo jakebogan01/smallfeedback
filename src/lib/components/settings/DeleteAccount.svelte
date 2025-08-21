@@ -5,7 +5,7 @@
 
 	const handleModal = () => {
 		updateModalData({
-			target: 'your account',
+			target: 'account',
 			id: 1
 		});
 	};
