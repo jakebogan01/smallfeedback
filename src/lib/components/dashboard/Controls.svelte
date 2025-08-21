@@ -1,7 +1,7 @@
 <script>
 	import { faker } from '@faker-js/faker';
 	import { toggleMode } from 'mode-watcher';
-	import { logout } from '$lib/utils/logout.js';
+	import { logout } from '$lib/utils/logout.svelte.js';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import MoonIcon from '@lucide/svelte/icons/moon';
 	import BellIcon from '@lucide/svelte/icons/bell';

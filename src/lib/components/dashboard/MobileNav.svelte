@@ -3,7 +3,7 @@
 	import { toggleMode } from 'mode-watcher';
 	import XIcon from '@lucide/svelte/icons/x';
 	import { fade, fly } from 'svelte/transition';
-	import { logout } from '$lib/utils/logout.js';
+	import { logout } from '$lib/utils/logout.svelte.js';
 	import Logo from '$lib/components/Logo.svelte';
 	import SunIcon from '@lucide/svelte/icons/sun';
 	import MoonIcon from '@lucide/svelte/icons/moon';

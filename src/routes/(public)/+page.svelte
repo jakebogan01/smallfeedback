@@ -1,9 +1,10 @@
 <script>
-	import pb from '$lib/pocketbase.js';
-	import { SIGNIN } from '$lib/constants.js';
 	import { onMount } from 'svelte';
-	import { logout } from '$lib/utils/logout.js';
+	import pb from '$lib/pocketbase.js';
+	import { logout } from '$lib/utils/logout.svelte.js';
 	import Head from '$lib/components/Head.svelte';
+	import { USER } from '$lib/stores/user.svelte.js';
+	import { SIGNIN, DASHBOARD } from '$lib/constants.js';
 	import AlignJustifyIcon from '@lucide/svelte/icons/align-justify';
 
 	let openMenu = $state(false);
@@ -123,15 +124,26 @@
 				</button>
 			</div>
 			<nav id="navbar" class="hidden lg:block">
-				<ul>
-					<li>
-						<a
-							href={SIGNIN}
-							aria-label="Sign-in"
-							class="w-30 rounded-full border border-[#c9d9e9] bg-transparent px-6 py-3 text-xs font-normal whitespace-nowrap text-slate-500 select-none sm:text-sm"
-							>Sign in</a
-						>
-					</li>
+				<ul class="flex items-center">
+					{#if USER.isAuthed}
+						<li>
+							<button
+								onclick={logout}
+								aria-label="Sign-out"
+								class="w-23.5 cursor-pointer rounded-full border border-[#c9d9e9] bg-transparent py-3 text-xs font-normal whitespace-nowrap text-slate-500 select-none sm:text-sm"
+								>Sign out</button
+							>
+						</li>
+					{:else}
+						<li>
+							<a
+								href={SIGNIN}
+								aria-label="Sign-in"
+								class="w-30 rounded-full border border-[#c9d9e9] bg-transparent px-6 py-3 text-xs font-normal whitespace-nowrap text-slate-500 select-none sm:text-sm"
+								>Sign in</a
+							>
+						</li>
+					{/if}
 				</ul>
 			</nav>
 		</div>
@@ -139,7 +151,7 @@
 			<div class="float-right inline-block w-full align-middle lg:hidden">
 				<nav>
 					<ul>
-						{#if pb?.authStore?.isValid}
+						{#if USER.isAuthed}
 							<li class="border border-[#ededed] bg-blue-500">
 								<button
 									onclick={logout}
@@ -178,13 +190,23 @@
 							Manage feedback like a boss
 						</h2>
 						<div>
-							<a
-								href={SIGNIN}
-								aria-label="Sign-in"
-								bind:this={target}
-								class="w-30 rounded-full bg-indigo-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
-								>Get Started</a
-							>
+							{#if USER.isAuthed}
+								<a
+									href={DASHBOARD}
+									aria-label="Visit dashboard"
+									bind:this={target}
+									class="w-30 rounded-full bg-indigo-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+									>Dashboard</a
+								>
+							{:else}
+								<a
+									href={SIGNIN}
+									aria-label="Sign-in"
+									bind:this={target}
+									class="w-30 rounded-full bg-indigo-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+									>Get Started</a
+								>
+							{/if}
 						</div>
 						<img
 							src="/test2.png"
@@ -216,12 +238,21 @@
 					<h4 class="mb-7.5 text-sm leading-tight font-medium text-[#c7cbff] sm:text-[1.375rem]">
 						Nope, just this cool button that you should click on.
 					</h4>
-					<a
-						href={SIGNIN}
-						aria-label="Sign-in"
-						class="w-30 rounded-full bg-white px-6 py-3 text-xs font-normal text-slate-500 shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
-						>Get Started</a
-					>
+					{#if USER.isAuthed}
+						<a
+							href={DASHBOARD}
+							aria-label="Visit dashboard"
+							class="w-30 rounded-full bg-white px-6 py-3 text-xs font-normal text-slate-500 shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+							>Dashboard</a
+						>
+					{:else}
+						<a
+							href={SIGNIN}
+							aria-label="Sign-in"
+							class="w-30 rounded-full bg-white px-6 py-3 text-xs font-normal text-slate-500 shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+							>Get Started</a
+						>
+					{/if}
 				</div>
 			</div>
 		</div>
