@@ -1,6 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	import pb from '$lib/pocketbase.js';
 	import { logout } from '$lib/utils/logout.svelte.js';
 	import Head from '$lib/components/Head.svelte';
 	import { USER } from '$lib/stores/user.svelte.js';
@@ -13,6 +12,7 @@
 	let ctx;
 	let mouse = { x: null, y: null };
 	let frame;
+	let arrowColor = $state(null);
 
 	const updateCanvasSize = () => {
 		if (!canvas) return;
@@ -44,7 +44,11 @@
 
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-		ctx.strokeStyle = `rgba(0,0,0,${opacity})`;
+		if (arrowColor === 'dark') {
+			ctx.strokeStyle = `rgba(255,255,255,${opacity})`;
+        } else {
+			ctx.strokeStyle = `rgba(0,0,0,${opacity})`;
+        }
 		ctx.lineWidth = 1;
 
 		// Curve
@@ -79,6 +83,7 @@
 	};
 
 	onMount(() => {
+		arrowColor = localStorage.getItem('mode-watcher-mode');
 		ctx = canvas.getContext('2d');
 		updateCanvasSize();
 
@@ -105,9 +110,9 @@
 />
 
 <header
-	class="fixed top-0 left-0 z-4 w-full bg-white shadow-md shadow-black/20 lg:static lg:bg-transparent lg:px-6 lg:py-7.5 lg:shadow-none"
+	class="fixed top-0 left-0 z-4 w-full bg-white dark:bg-card lg:dark:bg-background shadow-md shadow-black/20 lg:static lg:bg-transparent lg:px-6 lg:py-7.5 lg:shadow-none"
 >
-	<div class="mx-auto max-w-7xl text-[#1f4568]">
+	<div class="mx-auto max-w-7xl text-[#1f4568] dark:text-foreground">
 		<div class="flex items-center justify-between">
 			<div class="flex w-full items-center justify-between">
 				<div class="flex items-center px-5 py-3 lg:p-0">
@@ -130,7 +135,7 @@
 							<button
 								onclick={logout}
 								aria-label="Sign-out"
-								class="w-23.5 cursor-pointer rounded-full border border-[#c9d9e9] bg-transparent py-3 text-xs font-normal whitespace-nowrap text-slate-500 select-none sm:text-sm"
+								class="w-23.5 cursor-pointer rounded-full border border-[#c9d9e9] bg-transparent dark:border-border py-3 text-xs font-normal whitespace-nowrap text-slate-500 dark:text-foreground select-none sm:text-sm"
 								>Sign out</button
 							>
 						</li>
@@ -139,7 +144,7 @@
 							<a
 								href={SIGNIN}
 								aria-label="Sign-in"
-								class="w-30 rounded-full border border-[#c9d9e9] bg-transparent px-6 py-3 text-xs font-normal whitespace-nowrap text-slate-500 select-none sm:text-sm"
+								class="w-30 rounded-full border border-[#c9d9e9] dark:border-border bg-transparent px-6 py-3 text-xs font-normal whitespace-nowrap text-slate-500 dark:text-foreground select-none sm:text-sm"
 								>Sign in</a
 							>
 						</li>
@@ -152,7 +157,7 @@
 				<nav>
 					<ul>
 						{#if USER.isAuthed}
-							<li class="border border-[#ededed] bg-blue-500">
+							<li class="border border-[#ededed] dark:border-transparent bg-blue-500 dark:bg-secondary">
 								<button
 									onclick={logout}
 									aria-label="Sign out"
@@ -161,7 +166,7 @@
 								>
 							</li>
 						{:else}
-							<li class="border border-[#ededed] bg-blue-500">
+							<li class="border border-[#ededed] bg-blue-500 dark:border-transparent dark:bg-secondary">
 								<a
 									href={SIGNIN}
 									aria-label="Sign-in"
@@ -179,14 +184,14 @@
 <main class="flex h-full flex-col">
 	<section
 		id="hero"
-		class="relative mx-auto max-w-3xl py-22.5 text-[#1f4568] lg:min-h-screen xl:max-w-6xl xl:pt-22.5 xl:pb-75"
+		class="relative mx-auto max-w-3xl py-22.5 text-[#1f4568] dark:text-foreground xl:max-w-6xl xl:pt-22.5 xl:pb-75"
 	>
 		<div class="mx-4">
 			<div class="-mx-4">
 				<div class="relative min-h-px px-4">
 					<div class="text-center">
 						<h1 class="text-2xl font-bold sm:text-3xl xl:text-5xl">Free Anonymous Feedback</h1>
-						<h2 class="mt-0 mb-6 text-lg font-medium text-[#8198ae] sm:mt-4 sm:mb-10 sm:text-xl">
+						<h2 class="mt-0 mb-6 text-lg font-medium text-[#8198ae] dark:text-accent-foreground sm:mt-4 sm:mb-10 sm:text-xl">
 							Manage feedback like a boss
 						</h2>
 						<div>
@@ -195,7 +200,7 @@
 									href={DASHBOARD}
 									aria-label="Visit dashboard"
 									bind:this={target}
-									class="w-30 rounded-full bg-indigo-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+									class="w-30 rounded-full bg-indigo-500 dark:bg-secondary px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
 									>Dashboard</a
 								>
 							{:else}
@@ -203,7 +208,7 @@
 									href={SIGNIN}
 									aria-label="Sign-in"
 									bind:this={target}
-									class="w-30 rounded-full bg-indigo-500 px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
+									class="w-30 rounded-full bg-indigo-500 dark:bg-secondary px-6 py-3 text-xs font-normal text-white shadow-lg shadow-black/30 dark:shadow-black select-none sm:text-sm sm:shadow-xl sm:transition-shadow sm:hover:shadow-xs"
 									>Get Started</a
 								>
 							{/if}
@@ -221,7 +226,7 @@
 		</div>
 	</section>
 
-	<footer class="relative mt-8 flex-1 bg-indigo-500/90 pt-15 pb-10 sm:py-22.5">
+	<footer class="relative mt-8 flex-1 bg-indigo-500/90 dark:bg-secondary pt-15 pb-10 sm:py-22.5">
 		<img
 			src="/blocks.png"
 			alt="Blocks"

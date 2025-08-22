@@ -9,7 +9,7 @@
 </script>
 
 <nav aria-labelledby="feedback-overview-title">
-	<div class="card-foundation bg-primary p-6">
+	<div class="card-foundation dark:bg-banner p-6">
 		<h2 id="feedback-overview-title" class="sr-only">Feedback Overview</h2>
 		<div class="md:flex md:items-center md:justify-between md:space-x-5">
 			<h1 class="flex items-center space-x-3 text-xl font-bold text-white">
@@ -43,7 +43,7 @@
 					type="button"
 					onclick={toggleCreateForm}
 					aria-label="Add your feedback"
-					class="min-w-33 cursor-pointer bg-background py-5 text-sm font-bold text-black"
+					class="min-w-33 cursor-pointer py-5 text-sm font-bold"
 					>{showCreateForm ? 'Dashboard' : 'Add Feedback'}</Button
 				>
 			</div>

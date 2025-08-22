@@ -82,11 +82,12 @@
 						minlength="8"
 						maxlength="71"
 						aria-label="Password"
+                        class="input dark:input"
 						required
 					>
 						<Password.ToggleVisibility class="cursor-pointer" />
 					</Password.Input>
-					<Password.Strength />
+					<Password.Strength class="dark:bg-muted-foreground" />
 				</Password.Root>
 			{/snippet}
 		</Form.Control>

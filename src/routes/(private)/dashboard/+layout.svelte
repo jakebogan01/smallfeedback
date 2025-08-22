@@ -8,7 +8,7 @@
 	let { children } = $props();
 </script>
 
-<div class="min-h-full bg-input">
+<div class="min-h-full">
 	<Header />
 	{@render children?.()}
 </div>

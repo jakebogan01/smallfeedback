@@ -24,6 +24,7 @@
 					minlength="1"
 					maxlength="254"
 					aria-label="Email address"
+                    class=""
 					required
 				/>
 			{/snippet}
@@ -46,12 +47,13 @@
 						minlength="8"
 						maxlength="71"
 						aria-label="Password"
+                        class=""
 						required
 					>
 						<Password.ToggleVisibility class="cursor-pointer" />
 					</Password.Input>
 					{#if useStrongPwd}
-						<Password.Strength />
+						<Password.Strength class="" />
 					{/if}
 				</Password.Root>
 			{/snippet}
@@ -59,7 +61,7 @@
 		<Form.FieldErrors />
 	</Form.Field>
 	{@render children?.()}
-	<Form.Button disabled={btnDisabled} class="w-full cursor-pointer">
+	<Form.Button disabled={btnDisabled} variant="secondary" class="w-full cursor-pointer">
 		{#if btnDisabled}
 			<Loader2Icon class="animate-spin" />
 		{:else}
@@ -67,7 +69,7 @@
 		{/if}
 	</Form.Button>
 	<div>
-		<p class="inline text-sm/6 text-gray-500 dark:text-gray-400">
+		<p class="inline text-sm/6">
 			Already a member? Sign in
 			<Button href={pageType} variant="ghost" class="h-auto p-0">here</Button>
 		</p>

@@ -12,6 +12,7 @@
 		console.log('like post!');
 	}}
 	aria-label="Like this post"
+    variant="secondary"
 	class="cursor-pointer"
 >
 	<HearIcon class="size-4" />

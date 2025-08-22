@@ -13,7 +13,7 @@
 <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 md:grid-cols-3">
 	<div>
 		<h2 class="text-base/7 font-semibold">Update avatar</h2>
-		<p class="text-xs/5">JPG, JPEG or PNG. 50MB max.</p>
+		<p class="text-xs/5 dark:text-accent-foreground">JPG, JPEG or PNG. 50MB max.</p>
 	</div>
 	<div class="flex items-center gap-x-8 md:col-span-2">
 		<ImageCropper.Root
@@ -31,7 +31,7 @@
 							<Button
 								{...props}
 								class="absolute -bottom-3 -left-3 rounded-full"
-								variant="outline"
+								variant="secondary"
 								size="icon"
 							>
 								<EditIcon class="size-4" />

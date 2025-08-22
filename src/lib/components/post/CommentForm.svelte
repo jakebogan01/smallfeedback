@@ -36,7 +36,7 @@
 	const { form: formData, enhance } = form;
 </script>
 
-<div class="rounded-md bg-background/30 p-2 sm:p-6 lg:max-w-2xl">
+<div class="rounded-md dark:bg-card/40 dark:border p-2 sm:p-6 lg:max-w-2xl">
 	<form class="space-y-4" enctype="multipart/form-data" use:enhance>
 		<Form.Field {form} name="comment" class="sm:col-span-4">
 			<Form.Control>
@@ -62,7 +62,7 @@
 			<Form.FieldErrors />
 		</Form.Field>
 		<div class="flex justify-end pt-2">
-			<Form.Button disabled={btnDisabled} class="cursor-pointer">
+			<Form.Button disabled={btnDisabled} variant="secondary" class="cursor-pointer">
 				{#if btnDisabled}
 					<Loader2Icon class="animate-spin" />
 				{:else}

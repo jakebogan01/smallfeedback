@@ -62,7 +62,7 @@
 		<Form.FieldErrors />
 	</Form.Field>
 	<div class="flex justify-end pt-2">
-		<Form.Button disabled={btnDisabled} class="cursor-pointer">
+		<Form.Button disabled={btnDisabled} variant="secondary" class="cursor-pointer">
 			{#if btnDisabled}
 				<Loader2Icon class="animate-spin" />
 			{:else}

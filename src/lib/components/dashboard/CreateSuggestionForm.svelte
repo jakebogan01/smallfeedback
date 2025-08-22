@@ -107,7 +107,7 @@
 
 <section class="mt-3" aria-labelledby="create-suggestion-form-title">
 	<h3 id="create-suggestion-form-title" class="sr-only">Create suggestion form</h3>
-	<div class="rounded-md bg-background/30 px-4 py-6 sm:p-10">
+	<div class="rounded-md dark:bg-black/50 px-4 py-6 sm:p-10">
 		<form class="space-y-4" enctype="multipart/form-data" use:enhance>
 			<div class="grid grid-cols-1 gap-x-16 gap-y-4 sm:grid-cols-6">
 				<Form.Field {form} name="title" class="sm:col-span-4">
@@ -140,7 +140,7 @@
 									class={cn(
 										buttonVariants({ variant: 'outline' }),
 										'w-full justify-between',
-										!$formData.tag && 'text-muted-foreground'
+										!$formData.tag && 'text-red'
 									)}
 									role="combobox"
 									{...props}
@@ -159,14 +159,14 @@
 							{/snippet}
 						</Form.Control>
 						<Popover.Content class="w-full max-w-60 p-0">
-							<Command.Root>
+							<Command.Root class="">
 								<Command.Input
 									autofocus
 									placeholder="Search tag..."
 									class="outline-non h-9 border-none ring-0 focus:border-none focus:ring-0 focus:outline-none"
 								/>
 								<Command.Empty>No tag found.</Command.Empty>
-								<Command.Group value="tags">
+								<Command.Group value="tags" class="">
 									{#each tags as tag (tag.value)}
 										<Command.Item
 											value={tag.label}
@@ -198,7 +198,7 @@
 			<div class="w-full rounded-md border {editorError ? 'border-destructive' : 'border-transparent'}">
 				<div
 					bind:this={editor}
-					class="flex min-h-40 w-full min-w-0 rounded-b-md border !border-transparent bg-background text-base shadow-xs md:text-sm dark:bg-input/30"
+					class="flex min-h-40 w-full min-w-0 rounded-b-md dark:!border-border shadow-xs md:text-sm"
 				></div>
 			</div>
 			{#if editorError}
@@ -211,7 +211,7 @@
 					<Button type="button" onclick={toggleCreateForm} variant="outline" class="cursor-pointer">
 						Cancel
 					</Button>
-					<Form.Button disabled={btnDisabled} class="cursor-pointer">
+					<Form.Button disabled={btnDisabled} variant="secondary" class="cursor-pointer">
 						{#if btnDisabled}
 							<Loader2Icon class="animate-spin" />
 						{:else}

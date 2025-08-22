@@ -15,7 +15,7 @@
 <section class="mt-3" id="feedback-cards">
 	<ul
 		role="list"
-		class="grid gap-3 rounded-md bg-background/30 sm:p-4 {changeLayout
+		class="grid gap-3 rounded-md dark:bg-card/50 dark:border sm:p-4 {changeLayout
 			? 'grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3'
 			: 'grid-cols-1'}"
 	>
@@ -98,7 +98,7 @@
 {/snippet}
 
 {#snippet tag()}
-	<span class="my-1 flex items-center md:my-0">
+	<span class="my-1 flex items-center md:my-0 dark:text-accent-foreground">
 		<HashTag class="size-3" />
 		<span class="ml-0.5 text-xs leading-none">{faker.book.genre()}</span>
 	</span>
@@ -112,11 +112,11 @@
 {/snippet}
 
 {#snippet title()}
-	<h2 class="max-w-60 truncate font-semibold">{faker.book.title()}</h2>
+	<h2 class="max-w-60 truncate font-semibold dark:text-accent">{faker.book.title()}</h2>
 {/snippet}
 
 {#snippet copy(mt)}
-	<p class="{mt} mb-4 line-clamp-3 text-sm leading-relaxed">
+	<p class="{mt} mb-4 line-clamp-3 text-sm leading-relaxed dark:text-accent-foreground">
 		{faker.word.words({ count: { min: 20, max: 100 } })}
 	</p>
 {/snippet}

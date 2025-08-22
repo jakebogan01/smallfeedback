@@ -8,23 +8,24 @@
 :root {
 	--bprogress-color: #000000;
 	--radius: 0.625rem;
-	--background: oklch(1 0 0);
+	--background: oklch(92.8% 0.006 264.531);
 	--foreground: oklch(0.129 0.042 264.695);
-	--card: oklch(1 0 0);
+	--card: #FFFFFF;
 	--card-foreground: oklch(0.129 0.042 264.695);
+    --banner: #0B284F;
 	--popover: oklch(1 0 0);
 	--popover-foreground: oklch(0.129 0.042 264.695);
 	--primary: oklch(0.208 0.042 265.755);
-	--primary-foreground: oklch(0.984 0.003 247.858);
-	--secondary: oklch(0.968 0.007 247.896);
-	--secondary-foreground: oklch(0.208 0.042 265.755);
+	--primary-foreground: oklch(0.232 0.046 268.174);
+	--secondary: oklch(58.5% 0.233 277.117);
+	--secondary-foreground: #FFFFFF;
 	--muted: oklch(0.968 0.007 247.896);
 	--muted-foreground: oklch(0.554 0.046 257.417);
 	--accent: oklch(0.968 0.007 247.896);
 	--accent-foreground: oklch(0.208 0.042 265.755);
 	--destructive: oklch(0.577 0.245 27.325);
 	--border: oklch(0.929 0.013 255.508);
-	--input: oklch(0.929 0.013 255.508);
+	--input: oklch(0.855 0 89.876);
 	--ring: oklch(0.704 0.04 256.788);
 	--chart-1: oklch(0.646 0.222 41.116);
 	--chart-2: oklch(0.6 0.118 184.704);
@@ -42,22 +43,23 @@
 }
 
 .dark {
-	--background: oklch(0.129 0.042 264.695);
+	--background: #111111;
 	--foreground: oklch(0.984 0.003 247.858);
-	--card: oklch(0.208 0.042 265.755);
+	--card: #222222;
 	--card-foreground: oklch(0.984 0.003 247.858);
+    --banner: #0B284F;
 	--popover: oklch(0.208 0.042 265.755);
 	--popover-foreground: oklch(0.984 0.003 247.858);
-	--primary: oklch(0.929 0.013 255.508);
-	--primary-foreground: oklch(0.208 0.042 265.755);
-	--secondary: oklch(0.279 0.041 260.031);
+	--primary: #FFFFFF;
+	--primary-foreground: #212121;
+	--secondary: #0871F0;
 	--secondary-foreground: oklch(0.984 0.003 247.858);
 	--muted: oklch(0.279 0.041 260.031);
-	--muted-foreground: oklch(0.704 0.04 256.788);
-	--accent: oklch(0.279 0.041 260.031);
-	--accent-foreground: oklch(0.984 0.003 247.858);
+	--muted-foreground: #737373;
+	--accent: #FFFFFF;
+	--accent-foreground: #AEAEAE;
 	--destructive: oklch(0.704 0.191 22.216);
-	--border: oklch(1 0 0 / 10%);
+	--border: #333333;
 	--input: oklch(1 0 0 / 15%);
 	--ring: oklch(0.551 0.027 264.364);
 	--chart-1: oklch(0.488 0.243 264.376);
@@ -89,6 +91,7 @@
 	--color-foreground: var(--foreground);
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);
+    --color-banner: var(--banner);
 	--color-popover: var(--popover);
 	--color-popover-foreground: var(--popover-foreground);
 	--color-primary: var(--primary);
@@ -129,7 +132,7 @@
 
 @layer components {
 	.card-foundation {
-		@apply overflow-hidden rounded-md border border-transparent bg-background sm:shadow;
+		@apply overflow-hidden rounded-md border border-transparent bg-card sm:shadow;
 	}
 }
 
@@ -199,13 +202,13 @@
 
 /* Override Quill defaults with Tailwind-like styles */
 .ql-toolbar {
-	@apply flex flex-wrap gap-1 rounded-t-md !border-t-transparent !border-r-transparent !border-b-input !border-l-transparent bg-background p-2;
+	@apply flex flex-wrap gap-1 rounded-t-md !border-t-transparent !border-r-transparent !border-b-input !border-l-transparent dark:!border-l-border dark:!border-r-border dark:!border-t-border bg-background dark:bg-input/30 p-2;
 }
 .ql-container {
-	@apply h-full min-h-40 rounded-b-md bg-background;
+	@apply h-full min-h-40 rounded-b-md bg-background dark:bg-input/30;
 }
 .ql-editor {
-	@apply prose min-h-40 w-full max-w-none prose-neutral focus:outline-none;
+	@apply prose min-h-40 w-full max-w-none prose-neutral focus:outline-none dark:text-white;
 }
 .ql-editor img {
 	min-width: 40% !important;

@@ -12,7 +12,7 @@
 	<h3 id="tag-title" class="sr-only">Tags</h3>
 	<div class="card-foundation flex flex-wrap justify-evenly gap-x-2 gap-y-3.5 p-6">
 		{#each { length: faker.number.int({ min: 1, max: 10 }) }, i (i)}
-			<Button type="button" aria-label={faker.word.sample()} class="cursor-pointer">
+			<Button type="button" variant="secondary" aria-label={faker.word.sample()} class="cursor-pointer">
 				{faker.word.sample()}
 			</Button>
 		{/each}

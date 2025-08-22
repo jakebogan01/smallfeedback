@@ -18,21 +18,21 @@
 	<ToggleGroup.Item
 		onclick={toggleReply}
 		aria-label="reply"
-		class="cursor-pointer text-xs sm:opacity-0 sm:group-hover:opacity-100"
+		class="cursor-pointer text-xs sm:opacity-0 sm:group-hover:opacity-100 dark:hover:bg-transparent"
 	>
 		<ReplyIcon class="size-4" />
 	</ToggleGroup.Item>
 	<ToggleGroup.Item
 		onclick={toggleEdit}
 		aria-label="Edit reply"
-		class="cursor-pointer text-xs sm:opacity-0 sm:group-hover:opacity-100"
+		class="cursor-pointer text-xs sm:opacity-0 sm:group-hover:opacity-100 dark:hover:bg-transparent"
 	>
 		<SquarePenIcon class="size-4" />
 	</ToggleGroup.Item>
 	<ToggleGroup.Item
 		onclick={handleModal}
 		aria-label="Delete reply"
-		class="cursor-pointer text-xs sm:opacity-0 sm:group-hover:opacity-100"
+		class="cursor-pointer text-xs sm:opacity-0 sm:group-hover:opacity-100 dark:hover:bg-transparent"
 	>
 		<Trash2Icon class="size-4" />
 	</ToggleGroup.Item>

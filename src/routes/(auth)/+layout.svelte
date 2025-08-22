@@ -11,11 +11,11 @@
 	<div class="flex flex-1 flex-col justify-center px-4 py-12 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
 		<div class="mx-auto w-full max-w-sm lg:w-96">
 			<div>
-				<Button href="/" variant="ghost" class="flex-inline h-auto cursor-pointer items-center !p-0 text-xs">
+				<Button href="/" variant="ghost" class="flex-inline h-auto cursor-pointer items-center !p-0 text-xs dark:text-accent-foreground">
 					<ChevronLeftIcon class="size-3.5" />
 					Back
 				</Button>
-				<h2 class="mt-2 text-2xl/9 font-bold tracking-tight text-gray-900 dark:text-white">
+				<h2 class="mt-2 text-2xl/9 font-bold tracking-tight">
 					{#if page.url.pathname.endsWith(SIGNIN)}
 						Sign in to your account
 					{:else}
